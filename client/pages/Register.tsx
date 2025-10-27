@@ -1,34 +1,108 @@
 import Layout from "@/components/Layout";
-import { Link, useSearchParams } from "react-router-dom";
-import { ArrowLeft, Users, TrendingUp, Package } from "lucide-react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { ArrowLeft, UserPlus } from "lucide-react";
+import { useState } from "react";
+import { useAuth } from "@/context/AuthContext";
+import { useLanguage } from "@/hooks/useLanguage";
+import { Users, TrendingUp, Package } from "lucide-react";
 
 export default function Register() {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const { register, isLoading } = useAuth();
+  const { t } = useLanguage();
   const role = searchParams.get("role") || "citizen";
+  const [error, setError] = useState("");
+
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    businessName: "",
+  });
 
   const roles = [
     {
       id: "citizen",
-      name: "Citizen",
+      name: t("roles.citizens"),
       icon: Users,
-      description: "Recycle plastic and earn rewards",
+      description: t("roles.citizensDesc"),
     },
     {
       id: "buyer",
-      name: "Buyer",
+      name: t("roles.buyers"),
       icon: TrendingUp,
-      description: "Purchase collected plastic",
+      description: t("roles.buyersDesc"),
     },
     {
       id: "collector",
-      name: "Collector",
+      name: t("roles.collectors"),
       icon: Package,
-      description: "Manage collection centers",
+      description: t("roles.collectorsDesc"),
     },
   ];
 
   const selectedRole = roles.find((r) => r.id === role) || roles[0];
   const SelectedIcon = selectedRole.icon;
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+
+    // Validation
+    if (
+      !formData.firstName ||
+      !formData.lastName ||
+      !formData.email ||
+      !formData.password
+    ) {
+      setError("Please fill in all required fields");
+      return;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    if (formData.password.length < 8) {
+      setError("Password must be at least 8 characters");
+      return;
+    }
+
+    if (role === "collector" && !formData.businessName) {
+      setError("Business name is required for collectors");
+      return;
+    }
+
+    try {
+      await register(
+        formData.email,
+        formData.password,
+        formData.firstName,
+        formData.lastName,
+        role,
+        role === "collector" ? formData.businessName : undefined
+      );
+      navigate("/dashboard");
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Registration failed. Please try again."
+      );
+    }
+  };
 
   return (
     <Layout>
@@ -45,17 +119,17 @@ export default function Register() {
           <div className="max-w-4xl mx-auto">
             <div className="text-center space-y-4 mb-12">
               <h1 className="text-4xl font-montserrat font-bold text-dark-charcoal">
-                Create Your Account
+                {t("auth.createAccount")}
               </h1>
               <p className="text-lg text-dark-charcoal/60 font-raleway">
-                Join PlastiSide and start making an impact
+                {t("auth.joinPlatform")}
               </p>
             </div>
 
             {/* Role Selection */}
             <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
               <h2 className="text-2xl font-montserrat font-bold text-dark-charcoal mb-8">
-                Who are you?
+                {t("auth.whoAreYou")}
               </h2>
               <div className="grid md:grid-cols-3 gap-4">
                 {roles.map((r) => {
@@ -73,16 +147,14 @@ export default function Register() {
                     >
                       <Icon
                         className={`w-8 h-8 mx-auto mb-3 ${
-                          isSelected
-                            ? "text-eco-green"
-                            : "text-dark-charcoal/40"
+                          isSelected ? "text-eco-green" : "text-dark-charcoal/40"
                         }`}
                       />
                       <h3 className="font-montserrat font-bold text-dark-charcoal">
                         {r.name}
                       </h3>
                       <p className="text-sm text-dark-charcoal/60 font-raleway mt-2">
-                        {r.description}
+                        {r.description.substring(0, 50)}...
                       </p>
                     </Link>
                   );
@@ -101,30 +173,42 @@ export default function Register() {
                     Register as {selectedRole.name}
                   </h3>
                   <p className="text-sm text-dark-charcoal/60 font-raleway">
-                    {selectedRole.description}
+                    {selectedRole.description.substring(0, 60)}
                   </p>
                 </div>
               </div>
 
-              <form className="space-y-6">
+              {error && (
+                <div className="mb-6 p-4 bg-red-100 border border-red-300 text-red-600 rounded-lg text-sm">
+                  {error}
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-semibold text-dark-charcoal mb-2">
-                      First Name
+                      {t("auth.firstName")}
                     </label>
                     <input
                       type="text"
-                      placeholder="John"
+                      name="firstName"
+                      placeholder={t("auth.firstNamePlaceholder")}
+                      value={formData.firstName}
+                      onChange={handleInputChange}
                       className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-eco-green focus:border-transparent outline-none transition"
                     />
                   </div>
                   <div>
                     <label className="block text-sm font-semibold text-dark-charcoal mb-2">
-                      Last Name
+                      {t("auth.lastName")}
                     </label>
                     <input
                       type="text"
-                      placeholder="Doe"
+                      name="lastName"
+                      placeholder={t("auth.lastNamePlaceholder")}
+                      value={formData.lastName}
+                      onChange={handleInputChange}
                       className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-eco-green focus:border-transparent outline-none transition"
                     />
                   </div>
@@ -132,37 +216,60 @@ export default function Register() {
 
                 <div>
                   <label className="block text-sm font-semibold text-dark-charcoal mb-2">
-                    Email Address
+                    {t("auth.email")}
                   </label>
                   <input
                     type="email"
-                    placeholder="you@example.com"
+                    name="email"
+                    placeholder={t("auth.emailPlaceholder")}
+                    value={formData.email}
+                    onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-eco-green focus:border-transparent outline-none transition"
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-semibold text-dark-charcoal mb-2">
-                    Password
+                    {t("auth.password")}
                   </label>
                   <input
                     type="password"
-                    placeholder="••••••••"
+                    name="password"
+                    placeholder={t("auth.passwordPlaceholder")}
+                    value={formData.password}
+                    onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-eco-green focus:border-transparent outline-none transition"
                   />
                   <p className="text-xs text-dark-charcoal/50 mt-2 font-raleway">
-                    Must be at least 8 characters
+                    {t("auth.mustBe8Chars")}
                   </p>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-dark-charcoal mb-2">
+                    Confirm Password
+                  </label>
+                  <input
+                    type="password"
+                    name="confirmPassword"
+                    placeholder={t("auth.passwordPlaceholder")}
+                    value={formData.confirmPassword}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-eco-green focus:border-transparent outline-none transition"
+                  />
                 </div>
 
                 {role === "collector" && (
                   <div>
                     <label className="block text-sm font-semibold text-dark-charcoal mb-2">
-                      Business Name / Center Name
+                      {t("auth.businessName")}
                     </label>
                     <input
                       type="text"
-                      placeholder="Your Collection Center"
+                      name="businessName"
+                      placeholder={t("auth.businessNamePlaceholder")}
+                      value={formData.businessName}
+                      onChange={handleInputChange}
                       className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-eco-green focus:border-transparent outline-none transition"
                     />
                   </div>
@@ -174,39 +281,35 @@ export default function Register() {
                     id="terms"
                     className="w-4 h-4 rounded border-border mt-1"
                   />
-                  <label
-                    htmlFor="terms"
-                    className="text-sm text-dark-charcoal/70 font-raleway"
-                  >
-                    I agree to the{" "}
-                    <a
-                      href="#"
-                      className="text-eco-green hover:text-eco-green/80"
-                    >
-                      Terms of Service
+                  <label htmlFor="terms" className="text-sm text-dark-charcoal/70 font-raleway">
+                    {t("auth.agreeTerms")}{" "}
+                    <a href="#" className="text-eco-green hover:text-eco-green/80">
+                      {t("auth.termsOfService")}
                     </a>{" "}
-                    and{" "}
-                    <a
-                      href="#"
-                      className="text-eco-green hover:text-eco-green/80"
-                    >
-                      Privacy Policy
+                    {t("auth.and")}{" "}
+                    <a href="#" className="text-eco-green hover:text-eco-green/80">
+                      {t("auth.privacyPolicy")}
                     </a>
                   </label>
                 </div>
 
-                <button className="w-full btn-primary py-3 font-semibold">
-                  Create Account
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full btn-primary disabled:opacity-50 py-3 font-semibold flex items-center justify-center gap-2"
+                >
+                  <UserPlus className="w-5 h-5" />
+                  {isLoading ? "Creating..." : t("auth.createAccountButton")}
                 </button>
 
                 <div className="text-center text-sm">
                   <p className="text-dark-charcoal/70">
-                    Already have an account?{" "}
+                    {t("auth.haveAccount")}{" "}
                     <Link
                       to="/login"
                       className="text-eco-green hover:text-eco-green/80 font-semibold"
                     >
-                      Sign in here
+                      {t("auth.signInHere")}
                     </Link>
                   </p>
                 </div>
