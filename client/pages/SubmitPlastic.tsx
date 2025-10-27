@@ -33,7 +33,9 @@ export default function SubmitPlastic() {
   const { t } = useLanguage();
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -81,7 +83,9 @@ export default function SubmitPlastic() {
       const data = await response.json();
 
       if (data.success) {
-        setMessage("Submission successful! Points will be added after verification.");
+        setMessage(
+          "Submission successful! Points will be added after verification.",
+        );
         // Reset form
         setFormData({
           plasticType: "PET",
@@ -142,7 +146,8 @@ export default function SubmitPlastic() {
               {t("submission.submitPlastic")}
             </h1>
             <p className="text-dark-charcoal/60 mb-8">
-              Help us track and manage plastic recycling. Fill in the details below.
+              Help us track and manage plastic recycling. Fill in the details
+              below.
             </p>
 
             {/* Message */}
@@ -274,7 +279,8 @@ export default function SubmitPlastic() {
                       onClick={() => {
                         setPhoto(null);
                         setPhotoPreview(null);
-                        if (fileInputRef.current) fileInputRef.current.value = "";
+                        if (fileInputRef.current)
+                          fileInputRef.current.value = "";
                       }}
                       className="mt-3 text-red-600 hover:text-red-700 font-semibold text-sm"
                     >
@@ -306,9 +312,9 @@ export default function SubmitPlastic() {
                   Points Calculation
                 </h3>
                 <p className="text-sm text-dark-charcoal/70">
-                  Your points are calculated based on the plastic type and weight submitted.
-                  The submission will be verified by our team, and points will be awarded upon
-                  confirmation.
+                  Your points are calculated based on the plastic type and
+                  weight submitted. The submission will be verified by our team,
+                  and points will be awarded upon confirmation.
                 </p>
               </div>
 

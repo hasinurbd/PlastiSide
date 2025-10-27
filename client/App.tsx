@@ -33,11 +33,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     );
   }
 
-  return isAuthenticated ? (
-    <>{children}</>
-  ) : (
-    <Navigate to="/login" replace />
-  );
+  return isAuthenticated ? <>{children}</> : <Navigate to="/login" replace />;
 };
 
 // Admin protected route

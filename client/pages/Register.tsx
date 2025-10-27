@@ -48,7 +48,7 @@ export default function Register() {
   const SelectedIcon = selectedRole.icon;
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -94,12 +94,14 @@ export default function Register() {
         formData.firstName,
         formData.lastName,
         role,
-        role === "collector" ? formData.businessName : undefined
+        role === "collector" ? formData.businessName : undefined,
       );
       navigate("/dashboard");
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : "Registration failed. Please try again."
+        err instanceof Error
+          ? err.message
+          : "Registration failed. Please try again.",
       );
     }
   };
@@ -147,7 +149,9 @@ export default function Register() {
                     >
                       <Icon
                         className={`w-8 h-8 mx-auto mb-3 ${
-                          isSelected ? "text-eco-green" : "text-dark-charcoal/40"
+                          isSelected
+                            ? "text-eco-green"
+                            : "text-dark-charcoal/40"
                         }`}
                       />
                       <h3 className="font-montserrat font-bold text-dark-charcoal">
@@ -281,13 +285,22 @@ export default function Register() {
                     id="terms"
                     className="w-4 h-4 rounded border-border mt-1"
                   />
-                  <label htmlFor="terms" className="text-sm text-dark-charcoal/70 font-raleway">
+                  <label
+                    htmlFor="terms"
+                    className="text-sm text-dark-charcoal/70 font-raleway"
+                  >
                     {t("auth.agreeTerms")}{" "}
-                    <a href="#" className="text-eco-green hover:text-eco-green/80">
+                    <a
+                      href="#"
+                      className="text-eco-green hover:text-eco-green/80"
+                    >
                       {t("auth.termsOfService")}
                     </a>{" "}
                     {t("auth.and")}{" "}
-                    <a href="#" className="text-eco-green hover:text-eco-green/80">
+                    <a
+                      href="#"
+                      className="text-eco-green hover:text-eco-green/80"
+                    >
                       {t("auth.privacyPolicy")}
                     </a>
                   </label>

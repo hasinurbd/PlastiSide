@@ -19,13 +19,13 @@ export default function Profile() {
   });
   const [avatar, setAvatar] = useState<File | null>(null);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(
-    user?.avatar || null
+    user?.avatar || null,
   );
   const [message, setMessage] = useState("");
   const { t } = useLanguage();
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -140,7 +140,8 @@ export default function Profile() {
             {message && (
               <div
                 className={`mb-6 p-4 rounded-lg ${
-                  message.includes("success") || message.includes("successfully")
+                  message.includes("success") ||
+                  message.includes("successfully")
                     ? "bg-eco-green/20 text-eco-green border border-eco-green"
                     : "bg-red-100 text-red-600 border border-red-300"
                 }`}

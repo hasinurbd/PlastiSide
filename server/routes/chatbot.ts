@@ -4,16 +4,26 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 const DEFAULT_RESPONSES: { [key: string]: string } = {
-  "how does plastisidework": "PlastiSide is a plastic recycling platform where citizens submit plastic to vending machines, earn rewards, and get ranked based on their contributions.",
-  "how do i earn rewards": "You earn rewards by submitting plastic to our vending machines. The amount depends on the plastic type and weight submitted.",
-  "how do i submit plastic": "Register an account, find the nearest vending machine, and submit your clean plastic items. You'll instantly earn points!",
-  "what are the plastic types": "We accept PET, HDPE, PVC, LDPE, PP, PS, and other plastics. Each type has different point values.",
-  "what is my rank": "Your rank is determined by your total points: Bronze (0-999), Silver (1000-2999), Gold (3000-4999), and Platinum (5000+).",
-  "how do i become a buyer": "Register as a buyer to purchase verified plastic from our marketplace. You'll have access to bulk ordering.",
-  "what is a collector": "Collectors manage plastic collection centers and handle verification, inventory, and payment processing.",
-  "how do i contact support": "You can reach us at hello@plastiside.com or call +1 (555) 123-4567.",
-  "is my data secure": "Yes, we use bank-level encryption and verified user profiles to ensure all transactions are secure.",
-  "can i edit my profile": "Yes, you can update your profile information and upload a profile picture from your dashboard.",
+  "how does plastisidework":
+    "PlastiSide is a plastic recycling platform where citizens submit plastic to vending machines, earn rewards, and get ranked based on their contributions.",
+  "how do i earn rewards":
+    "You earn rewards by submitting plastic to our vending machines. The amount depends on the plastic type and weight submitted.",
+  "how do i submit plastic":
+    "Register an account, find the nearest vending machine, and submit your clean plastic items. You'll instantly earn points!",
+  "what are the plastic types":
+    "We accept PET, HDPE, PVC, LDPE, PP, PS, and other plastics. Each type has different point values.",
+  "what is my rank":
+    "Your rank is determined by your total points: Bronze (0-999), Silver (1000-2999), Gold (3000-4999), and Platinum (5000+).",
+  "how do i become a buyer":
+    "Register as a buyer to purchase verified plastic from our marketplace. You'll have access to bulk ordering.",
+  "what is a collector":
+    "Collectors manage plastic collection centers and handle verification, inventory, and payment processing.",
+  "how do i contact support":
+    "You can reach us at hello@plastiside.com or call +1 (555) 123-4567.",
+  "is my data secure":
+    "Yes, we use bank-level encryption and verified user profiles to ensure all transactions are secure.",
+  "can i edit my profile":
+    "Yes, you can update your profile information and upload a profile picture from your dashboard.",
 };
 
 export const sendMessage: RequestHandler = async (req, res) => {
@@ -43,7 +53,10 @@ export const sendMessage: RequestHandler = async (req, res) => {
     // If no exact match, check default responses
     if (!response) {
       for (const [key, value] of Object.entries(DEFAULT_RESPONSES)) {
-        if (normalizedMessage.includes(key) || key.includes(normalizedMessage)) {
+        if (
+          normalizedMessage.includes(key) ||
+          key.includes(normalizedMessage)
+        ) {
           return res.json({
             success: true,
             message: value,

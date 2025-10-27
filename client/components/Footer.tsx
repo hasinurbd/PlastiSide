@@ -49,17 +49,26 @@ export default function Footer() {
             </h4>
             <ul className="flex flex-col gap-2 text-gray-400 text-sm">
               <li>
-                <a href="/#how-it-works" className="hover:text-eco-green transition-colors">
+                <a
+                  href="/#how-it-works"
+                  className="hover:text-eco-green transition-colors"
+                >
                   {t("nav.howItWorks")}
                 </a>
               </li>
               <li>
-                <a href="/#roles" className="hover:text-eco-green transition-colors">
+                <a
+                  href="/#roles"
+                  className="hover:text-eco-green transition-colors"
+                >
                   {t("nav.forEveryone")}
                 </a>
               </li>
               <li>
-                <a href="/#impact" className="hover:text-eco-green transition-colors">
+                <a
+                  href="/#impact"
+                  className="hover:text-eco-green transition-colors"
+                >
                   {t("nav.impact")}
                 </a>
               </li>
@@ -73,7 +82,10 @@ export default function Footer() {
             </h4>
             <ul className="flex flex-col gap-2 text-gray-400 text-sm">
               <li>
-                <Link to="/about" className="hover:text-eco-green transition-colors">
+                <Link
+                  to="/about"
+                  className="hover:text-eco-green transition-colors"
+                >
                   {t("footer.aboutUs")}
                 </Link>
               </li>
@@ -87,7 +99,10 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <Link to="/privacy" className="hover:text-eco-green transition-colors">
+                <Link
+                  to="/privacy"
+                  className="hover:text-eco-green transition-colors"
+                >
                   {t("footer.privacyPolicy")}
                 </Link>
               </li>
@@ -110,13 +125,22 @@ export default function Footer() {
           <div className="flex flex-col gap-4">
             <h4 className="font-montserrat font-semibold text-lg">Follow Us</h4>
             <div className="flex gap-4">
-              <a href="#" className="text-gray-400 hover:text-eco-green transition-colors">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-eco-green transition-colors"
+              >
                 Twitter
               </a>
-              <a href="#" className="text-gray-400 hover:text-eco-green transition-colors">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-eco-green transition-colors"
+              >
                 Facebook
               </a>
-              <a href="#" className="text-gray-400 hover:text-eco-green transition-colors">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-eco-green transition-colors"
+              >
                 Instagram
               </a>
             </div>
@@ -138,7 +162,8 @@ export default function Footer() {
               </button>
             </div>
             <p className="text-gray-400 text-sm mb-6">
-              Meet the passionate team building PlastiSide to create a sustainable future.
+              Meet the passionate team building PlastiSide to create a
+              sustainable future.
             </p>
             <div className="grid md:grid-cols-3 gap-6">
               {teamMembers.map((member, idx) => (
@@ -166,13 +191,22 @@ export default function Footer() {
               © {currentYear} PlastiSide. {t("footer.rights")}
             </p>
             <div className="flex gap-6">
-              <a href="#" className="text-gray-400 hover:text-eco-green transition-colors text-sm">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-eco-green transition-colors text-sm"
+              >
                 Twitter
               </a>
-              <a href="#" className="text-gray-400 hover:text-eco-green transition-colors text-sm">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-eco-green transition-colors text-sm"
+              >
                 Facebook
               </a>
-              <a href="#" className="text-gray-400 hover:text-eco-green transition-colors text-sm">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-eco-green transition-colors text-sm"
+              >
                 Instagram
               </a>
             </div>

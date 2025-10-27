@@ -13,7 +13,7 @@ const PLASTIC_TYPES = {
   LDPE: 12,
   PP: 14,
   PS: 9,
-  "Other": 5,
+  Other: 5,
 };
 
 const calculateRank = (points: number): string => {
@@ -43,13 +43,7 @@ export const createSubmission: RequestHandler = async (req, res) => {
       });
     }
 
-    const {
-      plasticType,
-      weight,
-      quantity,
-      location,
-      description,
-    } = req.body;
+    const { plasticType, weight, quantity, location, description } = req.body;
 
     if (!plasticType || !weight || !quantity || !location) {
       return res.status(400).json({
@@ -61,9 +55,7 @@ export const createSubmission: RequestHandler = async (req, res) => {
     // Calculate points
     const typeMultiplier =
       PLASTIC_TYPES[plasticType as keyof typeof PLASTIC_TYPES] || 5;
-    const pointsEarned = Math.floor(
-      weight * quantity * (typeMultiplier / 10)
-    );
+    const pointsEarned = Math.floor(weight * quantity * (typeMultiplier / 10));
 
     // Upload photo if provided
     let photoUrl: string | undefined;
@@ -76,7 +68,7 @@ export const createSubmission: RequestHandler = async (req, res) => {
         process.cwd(),
         "public",
         "submissions",
-        filename
+        filename,
       );
 
       // Create directory if it doesn't exist

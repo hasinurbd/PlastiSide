@@ -26,7 +26,7 @@ export default function AdminDashboard() {
   const { user, token, logout } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<"overview" | "users" | "settings">(
-    "overview"
+    "overview",
   );
   const [users, setUsers] = useState<User[]>([]);
   const [analytics, setAnalytics] = useState<Analytics | null>(null);
@@ -239,10 +239,10 @@ export default function AdminDashboard() {
                               ((item._sum.weight || 0) /
                                 (analytics.submissionsByType.reduce(
                                   (sum, t) => sum + (t._sum.weight || 0),
-                                  0
+                                  0,
                                 ) || 1)) *
                                 100,
-                              100
+                              100,
                             )}%`,
                           }}
                         ></div>

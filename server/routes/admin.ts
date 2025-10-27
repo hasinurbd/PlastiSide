@@ -106,7 +106,9 @@ export const updateAdminSettings: RequestHandler = async (req, res) => {
           primaryColor: primaryColor || "#2ECC71",
           secondaryColor: secondaryColor || "#1A73E8",
           footerTeam: footerTeam ? JSON.stringify(footerTeam) : undefined,
-          analyticsData: analyticsData ? JSON.stringify(analyticsData) : undefined,
+          analyticsData: analyticsData
+            ? JSON.stringify(analyticsData)
+            : undefined,
         },
       });
     } else {
@@ -117,7 +119,9 @@ export const updateAdminSettings: RequestHandler = async (req, res) => {
           primaryColor: primaryColor || undefined,
           secondaryColor: secondaryColor || undefined,
           footerTeam: footerTeam ? JSON.stringify(footerTeam) : undefined,
-          analyticsData: analyticsData ? JSON.stringify(analyticsData) : undefined,
+          analyticsData: analyticsData
+            ? JSON.stringify(analyticsData)
+            : undefined,
         },
       });
     }

@@ -27,7 +27,7 @@ export default function Login() {
       navigate("/dashboard");
     } catch (err) {
       setError(
-        err instanceof Error ? err.message : "Login failed. Please try again."
+        err instanceof Error ? err.message : "Login failed. Please try again.",
       );
     }
   };
@@ -96,10 +96,7 @@ export default function Login() {
                   {t("auth.rememberMe")}
                 </span>
               </label>
-              <a
-                href="#"
-                className="text-eco-green hover:text-eco-green/80"
-              >
+              <a href="#" className="text-eco-green hover:text-eco-green/80">
                 {t("auth.forgotPassword")}
               </a>
             </div>
@@ -133,10 +130,12 @@ export default function Login() {
             </p>
             <div className="space-y-2 text-xs text-dark-charcoal/60">
               <p>
-                <span className="font-semibold">Citizen:</span> user@example.com / password123
+                <span className="font-semibold">Citizen:</span> user@example.com
+                / password123
               </p>
               <p>
-                <span className="font-semibold">Admin:</span> admin@example.com / admin123
+                <span className="font-semibold">Admin:</span> admin@example.com
+                / admin123
               </p>
             </div>
           </div>

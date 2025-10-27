@@ -5,7 +5,8 @@ import path from "path";
 import { promises as fs } from "fs";
 
 const prisma = new PrismaClient();
-const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key-change-in-production";
+const JWT_SECRET =
+  process.env.JWT_SECRET || "your-secret-key-change-in-production";
 
 interface DecodedToken {
   id: string;

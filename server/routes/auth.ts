@@ -4,7 +4,8 @@ import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 const prisma = new PrismaClient();
-const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key-change-in-production";
+const JWT_SECRET =
+  process.env.JWT_SECRET || "your-secret-key-change-in-production";
 
 export interface RegisterRequest {
   email: string;
@@ -87,7 +88,7 @@ export const handleRegister: RequestHandler = async (req, res) => {
         role: user.role,
       },
       JWT_SECRET,
-      { expiresIn: "7d" }
+      { expiresIn: "7d" },
     );
 
     return res.status(201).json({
@@ -154,7 +155,7 @@ export const handleLogin: RequestHandler = async (req, res) => {
         role: user.role,
       },
       JWT_SECRET,
-      { expiresIn: "7d" }
+      { expiresIn: "7d" },
     );
 
     return res.json({

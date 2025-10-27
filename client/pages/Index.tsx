@@ -1,4 +1,14 @@
-import { ArrowRight, Zap, TrendingUp, Users, Leaf, Package, Trophy, BarChart3, Clock } from "lucide-react";
+import {
+  ArrowRight,
+  Zap,
+  TrendingUp,
+  Users,
+  Leaf,
+  Package,
+  Trophy,
+  BarChart3,
+  Clock,
+} from "lucide-react";
 import Layout from "@/components/Layout";
 import { Link } from "react-router-dom";
 import AnimatedCounter from "@/components/AnimatedCounter";
@@ -15,9 +25,7 @@ export default function Index() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-8 animate-fade-in">
               <div className="space-y-4">
-                <h1 className="text-dark-charcoal">
-                  {t("hero.title")}
-                </h1>
+                <h1 className="text-dark-charcoal">{t("hero.title")}</h1>
                 <p className="text-xl text-dark-charcoal/70 font-raleway">
                   {t("hero.description")}
                 </p>
@@ -216,7 +224,10 @@ export default function Index() {
       </section>
 
       {/* Roles Section */}
-      <section id="roles" className="py-20 md:py-32 bg-gradient-to-b from-white to-light-grey">
+      <section
+        id="roles"
+        className="py-20 md:py-32 bg-gradient-to-b from-white to-light-grey"
+      >
         <div className="container mx-auto px-4">
           <div className="text-center space-y-4 mb-16">
             <h2 className="text-dark-charcoal">{t("roles.forEveryone")}</h2>
