@@ -1,0 +1,82 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String     @id @default(cuid())
+  email     String     @unique
+  password  String
+  firstName String
+  lastName  String
+  avatar    String?
+  role      String     @default("citizen") // citizen, buyer, collector, admin
+  status    String     @default("active") // active, suspended, inactive
+  businessName String?  // For collectors
+  points    Int        @default(0)
+  rank      String     @default("Bronze") // Bronze, Silver, Gold, Platinum
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  submissions Submission[]
+  profile     UserProfile?
+}
+
+model UserProfile {
+  id        String     @id @default(cuid())
+  userId    String     @unique
+  bio       String?
+  location  String?
+  phone     String?
+  verified  Boolean    @default(false)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Submission {
+  id           String     @id @default(cuid())
+  userId       String
+  plasticType  String     // PET, HDPE, PVC, LDPE, PP, PS, etc
+  weight       Float
+  quantity     Int
+  location     String
+  description  String?
+  photoUrl     String?
+  pointsEarned Int        @default(0)
+  status       String     @default("pending") // pending, verified, rejected
+  verifiedBy   String?
+  verifiedAt   DateTime?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model AdminSettings {
+  id           String     @id @default(cuid())
+  logoUrl      String?
+  companyName  String     @default("PlastiSide")
+  primaryColor String     @default("#2ECC71")
+  secondaryColor String   @default("#1A73E8")
+  footerTeam   String?    // JSON stringified team members
+  analyticsData String?   // JSON stringified analytics
+  updatedAt    DateTime   @updatedAt
+}
+
+model Chatbot {
+  id       String   @id @default(cuid())
+  question String
+  answer   String
+  category String   @default("general")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
