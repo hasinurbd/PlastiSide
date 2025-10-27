@@ -1,18 +1,12 @@
-import {
-  ArrowRight,
-  Zap,
-  TrendingUp,
-  Users,
-  Leaf,
-  Package,
-  Trophy,
-  BarChart3,
-  Clock,
-} from "lucide-react";
+import { ArrowRight, Zap, TrendingUp, Users, Leaf, Package, Trophy, BarChart3, Clock } from "lucide-react";
 import Layout from "@/components/Layout";
 import { Link } from "react-router-dom";
+import AnimatedCounter from "@/components/AnimatedCounter";
+import { useLanguage } from "@/hooks/useLanguage";
 
 export default function Index() {
+  const { t } = useLanguage();
+
   return (
     <Layout>
       {/* Hero Section */}
@@ -22,11 +16,10 @@ export default function Index() {
             <div className="space-y-8 animate-fade-in">
               <div className="space-y-4">
                 <h1 className="text-dark-charcoal">
-                  Turn Plastic Into Rewards
+                  {t("hero.title")}
                 </h1>
                 <p className="text-xl text-dark-charcoal/70 font-raleway">
-                  Join thousands making a difference. Recycle plastic, earn
-                  rewards, and help build a sustainable future with PlastiSide.
+                  {t("hero.description")}
                 </p>
               </div>
 
@@ -35,32 +28,42 @@ export default function Index() {
                   to="/register"
                   className="btn-primary flex items-center justify-center gap-2 group"
                 >
-                  Get Started
+                  {t("hero.getStarted")}
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <a
                   href="/#how-it-works"
                   className="btn-outline flex items-center justify-center"
                 >
-                  Learn More
+                  {t("hero.learnMore")}
                 </a>
               </div>
 
               {/* Stats */}
               <div className="grid grid-cols-3 gap-4 pt-8">
                 <div>
-                  <div className="text-2xl font-bold text-eco-green">50K+</div>
-                  <p className="text-sm text-dark-charcoal/60">Active Users</p>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-ocean-blue">250T</div>
+                  <div className="text-2xl font-bold text-eco-green">
+                    <AnimatedCounter end={50000} suffix="+" />
+                  </div>
                   <p className="text-sm text-dark-charcoal/60">
-                    Plastic Recycled
+                    {t("hero.activeUsers")}
                   </p>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-eco-green">$2M+</div>
-                  <p className="text-sm text-dark-charcoal/60">Rewards Given</p>
+                  <div className="text-2xl font-bold text-ocean-blue">
+                    <AnimatedCounter end={250} suffix="T" />
+                  </div>
+                  <p className="text-sm text-dark-charcoal/60">
+                    {t("hero.plasticRecycled")}
+                  </p>
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-eco-green">
+                    $<AnimatedCounter end={2} suffix="M+" />
+                  </div>
+                  <p className="text-sm text-dark-charcoal/60">
+                    {t("hero.rewardsGiven")}
+                  </p>
                 </div>
               </div>
             </div>
@@ -102,10 +105,9 @@ export default function Index() {
       <section id="how-it-works" className="py-20 md:py-32 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center space-y-4 mb-16">
-            <h2 className="text-dark-charcoal">How It Works</h2>
+            <h2 className="text-dark-charcoal">{t("howItWorks.title")}</h2>
             <p className="text-lg text-dark-charcoal/60 max-w-2xl mx-auto font-raleway">
-              Simple, transparent, and rewarding. Get started in three easy
-              steps.
+              {t("howItWorks.description")}
             </p>
           </div>
 
@@ -118,11 +120,10 @@ export default function Index() {
                 </div>
                 <div className="space-y-3">
                   <h3 className="text-xl font-montserrat font-bold text-dark-charcoal">
-                    Register & Locate
+                    {t("howItWorks.step1Title")}
                   </h3>
                   <p className="text-dark-charcoal/60 font-raleway">
-                    Create your free account and find the nearest vending
-                    machine in your area.
+                    {t("howItWorks.step1Desc")}
                   </p>
                 </div>
               </div>
@@ -140,11 +141,10 @@ export default function Index() {
                 </div>
                 <div className="space-y-3">
                   <h3 className="text-xl font-montserrat font-bold text-dark-charcoal">
-                    Submit Plastic
+                    {t("howItWorks.step2Title")}
                   </h3>
                   <p className="text-dark-charcoal/60 font-raleway">
-                    Deposit your clean plastic items into the smart vending
-                    machine.
+                    {t("howItWorks.step2Desc")}
                   </p>
                 </div>
               </div>
@@ -162,10 +162,10 @@ export default function Index() {
                 </div>
                 <div className="space-y-3">
                   <h3 className="text-xl font-montserrat font-bold text-dark-charcoal">
-                    Earn Rewards
+                    {t("howItWorks.step3Title")}
                   </h3>
                   <p className="text-dark-charcoal/60 font-raleway">
-                    Get instant rewards you can redeem for discounts and prizes.
+                    {t("howItWorks.step3Desc")}
                   </p>
                 </div>
               </div>
@@ -175,7 +175,7 @@ export default function Index() {
           {/* Process Timeline */}
           <div className="mt-20 bg-light-grey rounded-2xl p-8 md:p-12">
             <h3 className="text-2xl font-montserrat font-bold text-dark-charcoal mb-8 text-center">
-              The Plastic Journey
+              {t("howItWorks.journey")}
             </h3>
             <div className="grid md:grid-cols-4 gap-4">
               <div className="flex flex-col items-center">
@@ -183,7 +183,7 @@ export default function Index() {
                   1
                 </div>
                 <p className="text-sm font-semibold text-dark-charcoal text-center">
-                  Citizen Submits
+                  {t("howItWorks.citizenSubmits")}
                 </p>
               </div>
               <div className="flex items-center justify-center text-eco-green mb-8 md:mb-0">
@@ -195,7 +195,7 @@ export default function Index() {
                   2
                 </div>
                 <p className="text-sm font-semibold text-dark-charcoal text-center">
-                  Collector Verifies
+                  {t("howItWorks.collectorVerifies")}
                 </p>
               </div>
               <div className="flex items-center justify-center text-ocean-blue mb-8 md:mb-0">
@@ -207,7 +207,7 @@ export default function Index() {
                   3
                 </div>
                 <p className="text-sm font-semibold text-dark-charcoal text-center">
-                  Buyer Purchases
+                  {t("howItWorks.buyerPurchases")}
                 </p>
               </div>
             </div>
@@ -216,16 +216,12 @@ export default function Index() {
       </section>
 
       {/* Roles Section */}
-      <section
-        id="roles"
-        className="py-20 md:py-32 bg-gradient-to-b from-white to-light-grey"
-      >
+      <section id="roles" className="py-20 md:py-32 bg-gradient-to-b from-white to-light-grey">
         <div className="container mx-auto px-4">
           <div className="text-center space-y-4 mb-16">
-            <h2 className="text-dark-charcoal">For Everyone</h2>
+            <h2 className="text-dark-charcoal">{t("roles.forEveryone")}</h2>
             <p className="text-lg text-dark-charcoal/60 max-w-2xl mx-auto font-raleway">
-              Three distinct experiences designed for every participant in the
-              circular economy.
+              {t("roles.description")}
             </p>
           </div>
 
@@ -236,35 +232,34 @@ export default function Index() {
                 <Users className="w-8 h-8 text-eco-green" />
               </div>
               <h3 className="text-2xl font-montserrat font-bold text-dark-charcoal mb-4">
-                Citizens
+                {t("roles.citizens")}
               </h3>
               <p className="text-dark-charcoal/60 font-raleway mb-6">
-                Earn rewards by recycling plastic through our smart vending
-                machines. Track your impact and redeem rewards.
+                {t("roles.citizensDesc")}
               </p>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-center gap-3 text-dark-charcoal/70">
                   <span className="w-2 h-2 bg-eco-green rounded-full"></span>
-                  Find nearest machines
+                  {t("roles.findNearestMachines")}
                 </li>
                 <li className="flex items-center gap-3 text-dark-charcoal/70">
                   <span className="w-2 h-2 bg-eco-green rounded-full"></span>
-                  Track submissions
+                  {t("roles.trackSubmissions")}
                 </li>
                 <li className="flex items-center gap-3 text-dark-charcoal/70">
                   <span className="w-2 h-2 bg-eco-green rounded-full"></span>
-                  Earn & redeem rewards
+                  {t("roles.earnRedeemRewards")}
                 </li>
                 <li className="flex items-center gap-3 text-dark-charcoal/70">
                   <span className="w-2 h-2 bg-eco-green rounded-full"></span>
-                  Gamified challenges
+                  {t("roles.gamifiedChallenges")}
                 </li>
               </ul>
               <Link
                 to="/register?role=citizen"
                 className="btn-primary w-full flex items-center justify-center gap-2"
               >
-                Register as Citizen
+                {t("roles.registerCitizen")}
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -275,35 +270,34 @@ export default function Index() {
                 <TrendingUp className="w-8 h-8 text-ocean-blue" />
               </div>
               <h3 className="text-2xl font-montserrat font-bold text-dark-charcoal mb-4">
-                Buyers
+                {t("roles.buyers")}
               </h3>
               <p className="text-dark-charcoal/60 font-raleway mb-6">
-                Purchase collected, processed plastic directly from our
-                marketplace with guaranteed quality.
+                {t("roles.buyersDesc")}
               </p>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-center gap-3 text-dark-charcoal/70">
                   <span className="w-2 h-2 bg-ocean-blue rounded-full"></span>
-                  Browse marketplace
+                  {t("roles.browseMarketplace")}
                 </li>
                 <li className="flex items-center gap-3 text-dark-charcoal/70">
                   <span className="w-2 h-2 bg-ocean-blue rounded-full"></span>
-                  Bulk ordering
+                  {t("roles.bulkOrdering")}
                 </li>
                 <li className="flex items-center gap-3 text-dark-charcoal/70">
                   <span className="w-2 h-2 bg-ocean-blue rounded-full"></span>
-                  Quality verified
+                  {t("roles.qualityVerified")}
                 </li>
                 <li className="flex items-center gap-3 text-dark-charcoal/70">
                   <span className="w-2 h-2 bg-ocean-blue rounded-full"></span>
-                  Competitive pricing
+                  {t("roles.competitivePricing")}
                 </li>
               </ul>
               <Link
                 to="/register?role=buyer"
                 className="btn-secondary w-full flex items-center justify-center gap-2"
               >
-                Register as Buyer
+                {t("roles.registerBuyer")}
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -314,35 +308,34 @@ export default function Index() {
                 <Package className="w-8 h-8 text-eco-green" />
               </div>
               <h3 className="text-2xl font-montserrat font-bold text-dark-charcoal mb-4">
-                Collectors
+                {t("roles.collectors")}
               </h3>
               <p className="text-dark-charcoal/60 font-raleway mb-6">
-                Manage your branch's collection centers, inventory, and payments
-                through a comprehensive dashboard.
+                {t("roles.collectorsDesc")}
               </p>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-center gap-3 text-dark-charcoal/70">
                   <span className="w-2 h-2 bg-eco-green rounded-full"></span>
-                  Branch management
+                  {t("roles.branchManagement")}
                 </li>
                 <li className="flex items-center gap-3 text-dark-charcoal/70">
                   <span className="w-2 h-2 bg-eco-green rounded-full"></span>
-                  Inventory tracking
+                  {t("roles.inventoryTracking")}
                 </li>
                 <li className="flex items-center gap-3 text-dark-charcoal/70">
                   <span className="w-2 h-2 bg-eco-green rounded-full"></span>
-                  Payment management
+                  {t("roles.paymentManagement")}
                 </li>
                 <li className="flex items-center gap-3 text-dark-charcoal/70">
                   <span className="w-2 h-2 bg-eco-green rounded-full"></span>
-                  Pricing control
+                  {t("roles.pricingControl")}
                 </li>
               </ul>
               <Link
                 to="/register?role=collector"
                 className="btn-primary w-full flex items-center justify-center gap-2"
               >
-                Register as Collector
+                {t("roles.registerCollector")}
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -354,35 +347,40 @@ export default function Index() {
       <section id="impact" className="py-20 md:py-32 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center space-y-4 mb-16">
-            <h2 className="text-dark-charcoal">Our Impact</h2>
+            <h2 className="text-dark-charcoal">{t("impact.ourImpact")}</h2>
             <p className="text-lg text-dark-charcoal/60 max-w-2xl mx-auto font-raleway">
-              Together, we're building a healthier planet one plastic unit at a
-              time.
+              {t("impact.subtitle")}
             </p>
           </div>
 
           <div className="grid md:grid-cols-4 gap-6">
             <div className="bg-gradient-to-br from-eco-green/5 to-eco-green/10 rounded-xl p-8 text-center">
               <Leaf className="w-12 h-12 text-eco-green mx-auto mb-4" />
-              <div className="text-3xl font-bold text-eco-green mb-2">250K</div>
+              <div className="text-3xl font-bold text-eco-green mb-2">
+                <AnimatedCounter end={250000} suffix="K" />
+              </div>
               <p className="text-dark-charcoal/60 font-raleway">
-                Tons of plastic diverted from landfills
+                {t("impact.plasticDiverted")}
               </p>
             </div>
 
             <div className="bg-gradient-to-br from-ocean-blue/5 to-ocean-blue/10 rounded-xl p-8 text-center">
               <BarChart3 className="w-12 h-12 text-ocean-blue mx-auto mb-4" />
-              <div className="text-3xl font-bold text-ocean-blue mb-2">50K</div>
+              <div className="text-3xl font-bold text-ocean-blue mb-2">
+                <AnimatedCounter end={50000} suffix="K" />
+              </div>
               <p className="text-dark-charcoal/60 font-raleway">
-                Active citizens participating
+                {t("impact.activeCitizens")}
               </p>
             </div>
 
             <div className="bg-gradient-to-br from-eco-green/5 to-eco-green/10 rounded-xl p-8 text-center">
               <Trophy className="w-12 h-12 text-eco-green mx-auto mb-4" />
-              <div className="text-3xl font-bold text-eco-green mb-2">$2M+</div>
+              <div className="text-3xl font-bold text-eco-green mb-2">
+                $<AnimatedCounter end={2} suffix="M+" />
+              </div>
               <p className="text-dark-charcoal/60 font-raleway">
-                In total rewards distributed
+                {t("impact.totalRewards")}
               </p>
             </div>
 
@@ -392,7 +390,7 @@ export default function Index() {
                 24/7
               </div>
               <p className="text-dark-charcoal/60 font-raleway">
-                Collection center availability
+                {t("impact.availability")}
               </p>
             </div>
           </div>
@@ -403,11 +401,10 @@ export default function Index() {
       <section className="py-20 md:py-32 bg-gradient-to-r from-eco-green to-ocean-blue text-white">
         <div className="container mx-auto px-4 text-center space-y-8">
           <h2 className="text-4xl md:text-5xl font-montserrat font-bold">
-            Ready to Make a Difference?
+            {t("cta.readyMakeDifference")}
           </h2>
           <p className="text-xl font-raleway max-w-2xl mx-auto opacity-90">
-            Join PlastiSide today and start earning rewards while helping create
-            a sustainable future.
+            {t("cta.joinToday")}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
@@ -421,7 +418,7 @@ export default function Index() {
               href="/#how-it-works"
               className="px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-eco-green transition-colors"
             >
-              Learn More
+              {t("hero.learnMore")}
             </a>
           </div>
         </div>
@@ -431,9 +428,9 @@ export default function Index() {
       <section className="py-20 md:py-32 bg-light-grey">
         <div className="container mx-auto px-4">
           <div className="text-center space-y-4 mb-16">
-            <h2 className="text-dark-charcoal">Why Choose PlastiSide?</h2>
+            <h2 className="text-dark-charcoal">{t("features.whyChoose")}</h2>
             <p className="text-lg text-dark-charcoal/60 max-w-2xl mx-auto font-raleway">
-              Experience the platform built for the circular economy.
+              {t("features.subtitle")}
             </p>
           </div>
 
@@ -441,64 +438,60 @@ export default function Index() {
             <div className="bg-white rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow">
               <Zap className="w-10 h-10 text-eco-green mb-4" />
               <h3 className="text-xl font-montserrat font-bold text-dark-charcoal mb-3">
-                Real-Time Updates
+                {t("features.realTimeUpdates")}
               </h3>
               <p className="text-dark-charcoal/60 font-raleway">
-                Instant notifications on submissions, rewards, and inventory
-                changes.
+                {t("features.realTimeUpdatesDesc")}
               </p>
             </div>
 
             <div className="bg-white rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow">
               <Trophy className="w-10 h-10 text-ocean-blue mb-4" />
               <h3 className="text-xl font-montserrat font-bold text-dark-charcoal mb-3">
-                Gamified Experience
+                {t("features.gamifiedExperience")}
               </h3>
               <p className="text-dark-charcoal/60 font-raleway">
-                Earn badges, compete on leaderboards, and unlock exclusive
-                rewards.
+                {t("features.gamifiedExperienceDesc")}
               </p>
             </div>
 
             <div className="bg-white rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow">
               <BarChart3 className="w-10 h-10 text-eco-green mb-4" />
               <h3 className="text-xl font-montserrat font-bold text-dark-charcoal mb-3">
-                Comprehensive Analytics
+                {t("features.comprehensiveAnalytics")}
               </h3>
               <p className="text-dark-charcoal/60 font-raleway">
-                Track your impact and progress with detailed dashboards and
-                reports.
+                {t("features.comprehensiveAnalyticsDesc")}
               </p>
             </div>
 
             <div className="bg-white rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow">
               <Users className="w-10 h-10 text-ocean-blue mb-4" />
               <h3 className="text-xl font-montserrat font-bold text-dark-charcoal mb-3">
-                Community Driven
+                {t("features.communityDriven")}
               </h3>
               <p className="text-dark-charcoal/60 font-raleway">
-                Join a thriving community of eco-conscious citizens and
-                businesses.
+                {t("features.communityDrivenDesc")}
               </p>
             </div>
 
             <div className="bg-white rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow">
               <Package className="w-10 h-10 text-eco-green mb-4" />
               <h3 className="text-xl font-montserrat font-bold text-dark-charcoal mb-3">
-                Secure Transactions
+                {t("features.secureTransactions")}
               </h3>
               <p className="text-dark-charcoal/60 font-raleway">
-                Bank-level encryption and verified user profiles ensure safety.
+                {t("features.secureTransactionsDesc")}
               </p>
             </div>
 
             <div className="bg-white rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow">
               <Leaf className="w-10 h-10 text-ocean-blue mb-4" />
               <h3 className="text-xl font-montserrat font-bold text-dark-charcoal mb-3">
-                Transparent Impact
+                {t("features.transparentImpact")}
               </h3>
               <p className="text-dark-charcoal/60 font-raleway">
-                See exactly where your plastic goes and the real-world impact.
+                {t("features.transparentImpactDesc")}
               </p>
             </div>
           </div>
