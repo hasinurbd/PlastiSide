@@ -73,7 +73,9 @@ export default function Register() {
                     >
                       <Icon
                         className={`w-8 h-8 mx-auto mb-3 ${
-                          isSelected ? "text-eco-green" : "text-dark-charcoal/40"
+                          isSelected
+                            ? "text-eco-green"
+                            : "text-dark-charcoal/40"
                         }`}
                       />
                       <h3 className="font-montserrat font-bold text-dark-charcoal">
@@ -172,13 +174,22 @@ export default function Register() {
                     id="terms"
                     className="w-4 h-4 rounded border-border mt-1"
                   />
-                  <label htmlFor="terms" className="text-sm text-dark-charcoal/70 font-raleway">
+                  <label
+                    htmlFor="terms"
+                    className="text-sm text-dark-charcoal/70 font-raleway"
+                  >
                     I agree to the{" "}
-                    <a href="#" className="text-eco-green hover:text-eco-green/80">
+                    <a
+                      href="#"
+                      className="text-eco-green hover:text-eco-green/80"
+                    >
                       Terms of Service
                     </a>{" "}
                     and{" "}
-                    <a href="#" className="text-eco-green hover:text-eco-green/80">
+                    <a
+                      href="#"
+                      className="text-eco-green hover:text-eco-green/80"
+                    >
                       Privacy Policy
                     </a>
                   </label>

@@ -28,17 +28,26 @@ export default function Footer() {
             <h4 className="font-montserrat font-semibold text-lg">Platform</h4>
             <ul className="flex flex-col gap-2 text-gray-400 text-sm">
               <li>
-                <a href="/#how-it-works" className="hover:text-eco-green transition-colors">
+                <a
+                  href="/#how-it-works"
+                  className="hover:text-eco-green transition-colors"
+                >
                   How It Works
                 </a>
               </li>
               <li>
-                <a href="/#roles" className="hover:text-eco-green transition-colors">
+                <a
+                  href="/#roles"
+                  className="hover:text-eco-green transition-colors"
+                >
                   For Everyone
                 </a>
               </li>
               <li>
-                <a href="/#impact" className="hover:text-eco-green transition-colors">
+                <a
+                  href="/#impact"
+                  className="hover:text-eco-green transition-colors"
+                >
                   Impact
                 </a>
               </li>
@@ -50,17 +59,26 @@ export default function Footer() {
             <h4 className="font-montserrat font-semibold text-lg">Company</h4>
             <ul className="flex flex-col gap-2 text-gray-400 text-sm">
               <li>
-                <Link to="/about" className="hover:text-eco-green transition-colors">
+                <Link
+                  to="/about"
+                  className="hover:text-eco-green transition-colors"
+                >
                   About Us
                 </Link>
               </li>
               <li>
-                <Link to="/contact" className="hover:text-eco-green transition-colors">
+                <Link
+                  to="/contact"
+                  className="hover:text-eco-green transition-colors"
+                >
                   Contact
                 </Link>
               </li>
               <li>
-                <Link to="/privacy" className="hover:text-eco-green transition-colors">
+                <Link
+                  to="/privacy"
+                  className="hover:text-eco-green transition-colors"
+                >
                   Privacy Policy
                 </Link>
               </li>
@@ -85,13 +103,22 @@ export default function Footer() {
               © {currentYear} PlastiSide. All rights reserved.
             </p>
             <div className="flex gap-6">
-              <a href="#" className="text-gray-400 hover:text-eco-green transition-colors">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-eco-green transition-colors"
+              >
                 Twitter
               </a>
-              <a href="#" className="text-gray-400 hover:text-eco-green transition-colors">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-eco-green transition-colors"
+              >
                 Facebook
               </a>
-              <a href="#" className="text-gray-400 hover:text-eco-green transition-colors">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-eco-green transition-colors"
+              >
                 Instagram
               </a>
             </div>

@@ -15,16 +15,20 @@ export default function NotFound() {
               Page Not Found
             </h1>
             <p className="text-lg text-dark-charcoal/60 font-raleway">
-              Oops! The page you're looking for doesn't exist. Let's get you back on track.
+              Oops! The page you're looking for doesn't exist. Let's get you
+              back on track.
             </p>
           </div>
 
           <div className="bg-white rounded-lg p-6 border border-border">
             <p className="text-dark-charcoal/70 font-raleway mb-4">
-              This page is still being built or may have been moved. If you have a specific request for this page, let us know and we'll prioritize it!
+              This page is still being built or may have been moved. If you have
+              a specific request for this page, let us know and we'll prioritize
+              it!
             </p>
             <p className="text-sm text-dark-charcoal/50 font-raleway">
-              For now, explore the features available on our platform by returning to the homepage.
+              For now, explore the features available on our platform by
+              returning to the homepage.
             </p>
           </div>
 

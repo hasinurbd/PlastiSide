@@ -1,4 +1,14 @@
-import { ArrowRight, Zap, TrendingUp, Users, Leaf, Package, Trophy, BarChart3, Clock } from "lucide-react";
+import {
+  ArrowRight,
+  Zap,
+  TrendingUp,
+  Users,
+  Leaf,
+  Package,
+  Trophy,
+  BarChart3,
+  Clock,
+} from "lucide-react";
 import Layout from "@/components/Layout";
 import { Link } from "react-router-dom";
 
@@ -15,7 +25,8 @@ export default function Index() {
                   Turn Plastic Into Rewards
                 </h1>
                 <p className="text-xl text-dark-charcoal/70 font-raleway">
-                  Join thousands making a difference. Recycle plastic, earn rewards, and help build a sustainable future with PlastiSide.
+                  Join thousands making a difference. Recycle plastic, earn
+                  rewards, and help build a sustainable future with PlastiSide.
                 </p>
               </div>
 
@@ -43,7 +54,9 @@ export default function Index() {
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-ocean-blue">250T</div>
-                  <p className="text-sm text-dark-charcoal/60">Plastic Recycled</p>
+                  <p className="text-sm text-dark-charcoal/60">
+                    Plastic Recycled
+                  </p>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-eco-green">$2M+</div>
@@ -91,7 +104,8 @@ export default function Index() {
           <div className="text-center space-y-4 mb-16">
             <h2 className="text-dark-charcoal">How It Works</h2>
             <p className="text-lg text-dark-charcoal/60 max-w-2xl mx-auto font-raleway">
-              Simple, transparent, and rewarding. Get started in three easy steps.
+              Simple, transparent, and rewarding. Get started in three easy
+              steps.
             </p>
           </div>
 
@@ -107,7 +121,8 @@ export default function Index() {
                     Register & Locate
                   </h3>
                   <p className="text-dark-charcoal/60 font-raleway">
-                    Create your free account and find the nearest vending machine in your area.
+                    Create your free account and find the nearest vending
+                    machine in your area.
                   </p>
                 </div>
               </div>
@@ -128,7 +143,8 @@ export default function Index() {
                     Submit Plastic
                   </h3>
                   <p className="text-dark-charcoal/60 font-raleway">
-                    Deposit your clean plastic items into the smart vending machine.
+                    Deposit your clean plastic items into the smart vending
+                    machine.
                   </p>
                 </div>
               </div>
@@ -200,12 +216,16 @@ export default function Index() {
       </section>
 
       {/* Roles Section */}
-      <section id="roles" className="py-20 md:py-32 bg-gradient-to-b from-white to-light-grey">
+      <section
+        id="roles"
+        className="py-20 md:py-32 bg-gradient-to-b from-white to-light-grey"
+      >
         <div className="container mx-auto px-4">
           <div className="text-center space-y-4 mb-16">
             <h2 className="text-dark-charcoal">For Everyone</h2>
             <p className="text-lg text-dark-charcoal/60 max-w-2xl mx-auto font-raleway">
-              Three distinct experiences designed for every participant in the circular economy.
+              Three distinct experiences designed for every participant in the
+              circular economy.
             </p>
           </div>
 
@@ -219,7 +239,8 @@ export default function Index() {
                 Citizens
               </h3>
               <p className="text-dark-charcoal/60 font-raleway mb-6">
-                Earn rewards by recycling plastic through our smart vending machines. Track your impact and redeem rewards.
+                Earn rewards by recycling plastic through our smart vending
+                machines. Track your impact and redeem rewards.
               </p>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-center gap-3 text-dark-charcoal/70">
@@ -257,7 +278,8 @@ export default function Index() {
                 Buyers
               </h3>
               <p className="text-dark-charcoal/60 font-raleway mb-6">
-                Purchase collected, processed plastic directly from our marketplace with guaranteed quality.
+                Purchase collected, processed plastic directly from our
+                marketplace with guaranteed quality.
               </p>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-center gap-3 text-dark-charcoal/70">
@@ -295,7 +317,8 @@ export default function Index() {
                 Collectors
               </h3>
               <p className="text-dark-charcoal/60 font-raleway mb-6">
-                Manage your branch's collection centers, inventory, and payments through a comprehensive dashboard.
+                Manage your branch's collection centers, inventory, and payments
+                through a comprehensive dashboard.
               </p>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-center gap-3 text-dark-charcoal/70">
@@ -333,16 +356,15 @@ export default function Index() {
           <div className="text-center space-y-4 mb-16">
             <h2 className="text-dark-charcoal">Our Impact</h2>
             <p className="text-lg text-dark-charcoal/60 max-w-2xl mx-auto font-raleway">
-              Together, we're building a healthier planet one plastic unit at a time.
+              Together, we're building a healthier planet one plastic unit at a
+              time.
             </p>
           </div>
 
           <div className="grid md:grid-cols-4 gap-6">
             <div className="bg-gradient-to-br from-eco-green/5 to-eco-green/10 rounded-xl p-8 text-center">
               <Leaf className="w-12 h-12 text-eco-green mx-auto mb-4" />
-              <div className="text-3xl font-bold text-eco-green mb-2">
-                250K
-              </div>
+              <div className="text-3xl font-bold text-eco-green mb-2">250K</div>
               <p className="text-dark-charcoal/60 font-raleway">
                 Tons of plastic diverted from landfills
               </p>
@@ -350,9 +372,7 @@ export default function Index() {
 
             <div className="bg-gradient-to-br from-ocean-blue/5 to-ocean-blue/10 rounded-xl p-8 text-center">
               <BarChart3 className="w-12 h-12 text-ocean-blue mx-auto mb-4" />
-              <div className="text-3xl font-bold text-ocean-blue mb-2">
-                50K
-              </div>
+              <div className="text-3xl font-bold text-ocean-blue mb-2">50K</div>
               <p className="text-dark-charcoal/60 font-raleway">
                 Active citizens participating
               </p>
@@ -360,9 +380,7 @@ export default function Index() {
 
             <div className="bg-gradient-to-br from-eco-green/5 to-eco-green/10 rounded-xl p-8 text-center">
               <Trophy className="w-12 h-12 text-eco-green mx-auto mb-4" />
-              <div className="text-3xl font-bold text-eco-green mb-2">
-                $2M+
-              </div>
+              <div className="text-3xl font-bold text-eco-green mb-2">$2M+</div>
               <p className="text-dark-charcoal/60 font-raleway">
                 In total rewards distributed
               </p>
@@ -388,7 +406,8 @@ export default function Index() {
             Ready to Make a Difference?
           </h2>
           <p className="text-xl font-raleway max-w-2xl mx-auto opacity-90">
-            Join PlastiSide today and start earning rewards while helping create a sustainable future.
+            Join PlastiSide today and start earning rewards while helping create
+            a sustainable future.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
@@ -425,7 +444,8 @@ export default function Index() {
                 Real-Time Updates
               </h3>
               <p className="text-dark-charcoal/60 font-raleway">
-                Instant notifications on submissions, rewards, and inventory changes.
+                Instant notifications on submissions, rewards, and inventory
+                changes.
               </p>
             </div>
 
@@ -435,7 +455,8 @@ export default function Index() {
                 Gamified Experience
               </h3>
               <p className="text-dark-charcoal/60 font-raleway">
-                Earn badges, compete on leaderboards, and unlock exclusive rewards.
+                Earn badges, compete on leaderboards, and unlock exclusive
+                rewards.
               </p>
             </div>
 
@@ -445,7 +466,8 @@ export default function Index() {
                 Comprehensive Analytics
               </h3>
               <p className="text-dark-charcoal/60 font-raleway">
-                Track your impact and progress with detailed dashboards and reports.
+                Track your impact and progress with detailed dashboards and
+                reports.
               </p>
             </div>
 
@@ -455,7 +477,8 @@ export default function Index() {
                 Community Driven
               </h3>
               <p className="text-dark-charcoal/60 font-raleway">
-                Join a thriving community of eco-conscious citizens and businesses.
+                Join a thriving community of eco-conscious citizens and
+                businesses.
               </p>
             </div>
 
