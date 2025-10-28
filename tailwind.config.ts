@@ -67,6 +67,7 @@ export default {
         sans: ['Montserrat', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
         poppins: ['Poppins', 'sans-serif'],
         raleway: ['Raleway', 'sans-serif'],
+        bengali: ['Noto Sans Bengali', 'sans-serif'],
       },
       borderRadius: {
         lg: "var(--radius)",
