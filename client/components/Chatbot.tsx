@@ -54,9 +54,22 @@ export default function Chatbot() {
         body: JSON.stringify({ message: inputValue }),
       });
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const data = await response.json();
 
-      if (data.success) {
+      if (data && data.success) {
+        const botMessage: Message = {
+          id: (Date.now() + 1).toString(),
+          text: data.message || "I couldn't understand that. Please try again.",
+          sender: "bot",
+          timestamp: new Date(),
+        };
+
+        setMessages((prev) => [...prev, botMessage]);
+      } else if (data && data.message) {
         const botMessage: Message = {
           id: (Date.now() + 1).toString(),
           text: data.message,
@@ -65,6 +78,8 @@ export default function Chatbot() {
         };
 
         setMessages((prev) => [...prev, botMessage]);
+      } else {
+        throw new Error("Invalid response from server");
       }
     } catch (error) {
       console.error("Error sending message:", error);
