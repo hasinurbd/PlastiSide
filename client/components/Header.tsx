@@ -31,50 +31,43 @@ export default function Header() {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8">
-          {!isAuthenticated ? (
-            <>
-              <a
-                href="/#how-it-works"
-                className="text-dark-charcoal font-medium hover:text-eco-green transition-colors"
-              >
-                {t("nav.howItWorks")}
-              </a>
-              <a
-                href="/#roles"
-                className="text-dark-charcoal font-medium hover:text-eco-green transition-colors"
-              >
-                {t("nav.forEveryone")}
-              </a>
-              <a
-                href="/#impact"
-                className="text-dark-charcoal font-medium hover:text-eco-green transition-colors"
-              >
-                {t("nav.impact")}
-              </a>
-            </>
-          ) : (
-            <>
-              <Link
-                to="/dashboard"
-                className="text-dark-charcoal font-medium hover:text-eco-green transition-colors"
-              >
-                {t("common.dashboard")}
-              </Link>
-              <Link
-                to="/submit"
-                className="text-dark-charcoal font-medium hover:text-eco-green transition-colors"
-              >
-                {t("submission.submitPlastic")}
-              </Link>
-              {user?.role === "admin" && (
-                <Link
-                  to="/admin"
-                  className="text-dark-charcoal font-medium hover:text-eco-green transition-colors"
-                >
-                  {t("common.settings")}
-                </Link>
-              )}
-            </>
+          <a
+            href="/#how-it-works"
+            className="text-dark-charcoal font-medium hover:text-eco-green transition-colors"
+          >
+            {t("nav.howItWorks")}
+          </a>
+          <a
+            href="/#roles"
+            className="text-dark-charcoal font-medium hover:text-eco-green transition-colors"
+          >
+            {t("nav.forEveryone")}
+          </a>
+          <a
+            href="/#impact"
+            className="text-dark-charcoal font-medium hover:text-eco-green transition-colors"
+          >
+            {t("nav.impact")}
+          </a>
+          <Link
+            to="/dashboard"
+            className="text-dark-charcoal font-medium hover:text-eco-green transition-colors"
+          >
+            {t("common.dashboard")}
+          </Link>
+          <Link
+            to="/submit"
+            className="text-dark-charcoal font-medium hover:text-eco-green transition-colors"
+          >
+            {t("submission.submitPlastic")}
+          </Link>
+          {user?.role === "admin" && (
+            <Link
+              to="/admin"
+              className="text-dark-charcoal font-medium hover:text-eco-green transition-colors"
+            >
+              {t("common.settings")}
+            </Link>
           )}
         </div>
 
@@ -139,56 +132,49 @@ export default function Header() {
       {isMenuOpen && (
         <div className="md:hidden bg-white border-t border-light-grey">
           <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
-            {!isAuthenticated ? (
-              <>
-                <a
-                  href="/#how-it-works"
-                  className="text-dark-charcoal font-medium hover:text-eco-green transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {t("nav.howItWorks")}
-                </a>
-                <a
-                  href="/#roles"
-                  className="text-dark-charcoal font-medium hover:text-eco-green transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {t("nav.forEveryone")}
-                </a>
-                <a
-                  href="/#impact"
-                  className="text-dark-charcoal font-medium hover:text-eco-green transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {t("nav.impact")}
-                </a>
-              </>
-            ) : (
-              <>
-                <Link
-                  to="/dashboard"
-                  className="text-dark-charcoal font-medium hover:text-eco-green transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {t("common.dashboard")}
-                </Link>
-                <Link
-                  to="/submit"
-                  className="text-dark-charcoal font-medium hover:text-eco-green transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {t("submission.submitPlastic")}
-                </Link>
-                {user?.role === "admin" && (
-                  <Link
-                    to="/admin"
-                    className="text-dark-charcoal font-medium hover:text-eco-green transition-colors"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {t("common.settings")}
-                  </Link>
-                )}
-              </>
+            <a
+              href="/#how-it-works"
+              className="text-dark-charcoal font-medium hover:text-eco-green transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              {t("nav.howItWorks")}
+            </a>
+            <a
+              href="/#roles"
+              className="text-dark-charcoal font-medium hover:text-eco-green transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              {t("nav.forEveryone")}
+            </a>
+            <a
+              href="/#impact"
+              className="text-dark-charcoal font-medium hover:text-eco-green transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              {t("nav.impact")}
+            </a>
+            <Link
+              to="/dashboard"
+              className="text-dark-charcoal font-medium hover:text-eco-green transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              {t("common.dashboard")}
+            </Link>
+            <Link
+              to="/submit"
+              className="text-dark-charcoal font-medium hover:text-eco-green transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              {t("submission.submitPlastic")}
+            </Link>
+            {user?.role === "admin" && (
+              <Link
+                to="/admin"
+                className="text-dark-charcoal font-medium hover:text-eco-green transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {t("common.settings")}
+              </Link>
             )}
 
             <button
