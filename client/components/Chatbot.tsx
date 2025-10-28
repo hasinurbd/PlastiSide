@@ -19,7 +19,7 @@ export default function Chatbot() {
       timestamp: new Date(),
     },
   ]);
-  const [input, setInput] = useState("");
+  const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { t } = useLanguage();
@@ -32,26 +32,26 @@ export default function Chatbot() {
     scrollToBottom();
   }, [messages]);
 
-  const handleSend = async () => {
-    if (!input.trim()) return;
+  const handleSendMessage = async () => {
+    if (!inputValue.trim()) return;
 
     // Add user message
     const userMessage: Message = {
       id: Date.now().toString(),
-      text: input,
+      text: inputValue,
       sender: "user",
       timestamp: new Date(),
     };
 
     setMessages((prev) => [...prev, userMessage]);
-    setInput("");
+    setInputValue("");
     setIsLoading(true);
 
     try {
       const response = await fetch("/api/chatbot/message", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: input }),
+        body: JSON.stringify({ message: inputValue }),
       });
 
       const data = await response.json();
@@ -63,16 +63,18 @@ export default function Chatbot() {
           sender: "bot",
           timestamp: new Date(),
         };
+
         setMessages((prev) => [...prev, botMessage]);
       }
     } catch (error) {
-      console.error("Chatbot error:", error);
+      console.error("Error sending message:", error);
       const errorMessage: Message = {
-        id: (Date.now() + 2).toString(),
+        id: (Date.now() + 1).toString(),
         text: "Sorry, I encountered an error. Please try again.",
         sender: "bot",
         timestamp: new Date(),
       };
+
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
@@ -81,32 +83,31 @@ export default function Chatbot() {
 
   return (
     <>
-      {/* Chatbot Button */}
-      {!isOpen && (
-        <button
-          onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 w-14 h-14 bg-eco-green text-white rounded-full shadow-lg hover:bg-eco-green/90 transition-all flex items-center justify-center z-40 animate-bounce"
-        >
-          <MessageCircle className="w-7 h-7" />
-        </button>
-      )}
+      {/* Chatbot Toggle Button */}
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="fixed bottom-8 right-8 w-16 h-16 bg-eco-green text-white rounded-full shadow-lg hover:bg-eco-green/90 transition-colors flex items-center justify-center z-40"
+      >
+        {isOpen ? (
+          <X className="w-6 h-6" />
+        ) : (
+          <MessageCircle className="w-6 h-6" />
+        )}
+      </button>
 
       {/* Chatbot Window */}
       {isOpen && (
-        <div className="fixed bottom-6 right-6 w-96 h-96 bg-white rounded-lg shadow-2xl flex flex-col overflow-hidden z-50">
+        <div className="fixed bottom-24 right-8 w-96 h-screen md:h-96 bg-white rounded-lg shadow-2xl flex flex-col z-50 animate-slide-up">
           {/* Header */}
-          <div className="bg-eco-green text-white p-4 flex items-center justify-between">
-            <h3 className="font-semibold">{t("chatbot.chat")}</h3>
-            <button
-              onClick={() => setIsOpen(false)}
-              className="hover:bg-eco-green/80 p-1 rounded-lg transition-colors"
-            >
-              <X className="w-5 h-5" />
-            </button>
+          <div className="bg-eco-green text-white p-4 rounded-t-lg flex items-center justify-between">
+            <div>
+              <h3 className="font-bold text-lg">{t("chatbot.chat")}</h3>
+              <p className="text-xs text-eco-green/80">Always here to help</p>
+            </div>
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-light-grey">
+          <div className="flex-1 overflow-y-auto p-4 space-y-4">
             {messages.map((message) => (
               <div
                 key={message.id}
@@ -117,8 +118,8 @@ export default function Chatbot() {
                 <div
                   className={`max-w-xs px-4 py-2 rounded-lg ${
                     message.sender === "user"
-                      ? "bg-eco-green text-white"
-                      : "bg-white border border-border text-dark-charcoal"
+                      ? "bg-eco-green text-white rounded-br-none"
+                      : "bg-light-grey text-dark-charcoal rounded-bl-none"
                   }`}
                 >
                   <p className="text-sm">{message.text}</p>
@@ -140,17 +141,11 @@ export default function Chatbot() {
 
             {isLoading && (
               <div className="flex justify-start">
-                <div className="bg-white border border-border text-dark-charcoal px-4 py-2 rounded-lg">
+                <div className="bg-light-grey text-dark-charcoal px-4 py-2 rounded-lg rounded-bl-none">
                   <div className="flex gap-2">
-                    <div className="w-2 h-2 bg-dark-charcoal rounded-full animate-bounce"></div>
-                    <div
-                      className="w-2 h-2 bg-dark-charcoal rounded-full animate-bounce"
-                      style={{ animationDelay: "0.2s" }}
-                    ></div>
-                    <div
-                      className="w-2 h-2 bg-dark-charcoal rounded-full animate-bounce"
-                      style={{ animationDelay: "0.4s" }}
-                    ></div>
+                    <span className="w-2 h-2 bg-dark-charcoal rounded-full animate-bounce"></span>
+                    <span className="w-2 h-2 bg-dark-charcoal rounded-full animate-bounce animation-delay-100"></span>
+                    <span className="w-2 h-2 bg-dark-charcoal rounded-full animate-bounce animation-delay-200"></span>
                   </div>
                 </div>
               </div>
@@ -160,22 +155,28 @@ export default function Chatbot() {
           </div>
 
           {/* Input */}
-          <div className="bg-white border-t border-border p-4 flex gap-2">
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyPress={(e) => e.key === "Enter" && handleSend()}
-              placeholder={t("chatbot.typeMessage")}
-              className="flex-1 px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-eco-green focus:border-transparent outline-none text-sm"
-            />
-            <button
-              onClick={handleSend}
-              disabled={isLoading || !input.trim()}
-              className="px-3 py-2 bg-eco-green text-white rounded-lg hover:bg-eco-green/90 transition-colors disabled:opacity-50 flex items-center justify-center"
-            >
-              <Send className="w-4 h-4" />
-            </button>
+          <div className="border-t border-border p-4 rounded-b-lg">
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") {
+                    handleSendMessage();
+                  }
+                }}
+                placeholder={t("chatbot.typeMessage")}
+                className="flex-1 px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-eco-green focus:border-transparent outline-none transition"
+              />
+              <button
+                onClick={handleSendMessage}
+                disabled={isLoading || !inputValue.trim()}
+                className="px-4 py-2 bg-eco-green text-white rounded-lg hover:bg-eco-green/90 transition-colors disabled:opacity-50"
+              >
+                <Send className="w-4 h-4" />
+              </button>
+            </div>
           </div>
         </div>
       )}
