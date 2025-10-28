@@ -17,13 +17,22 @@ export default function Footer() {
     // Fetch team members from admin settings
     const fetchTeamMembers = async () => {
       try {
-        const response = await fetch("/api/admin/settings");
+        const response = await fetch("/api/admin/settings/public");
+        if (!response.ok) {
+          // Silently fail if not found - settings are optional
+          return;
+        }
         const data = await response.json();
         if (data.success && data.settings?.footerTeam) {
-          setTeamMembers(JSON.parse(data.settings.footerTeam));
+          try {
+            setTeamMembers(JSON.parse(data.settings.footerTeam));
+          } catch (parseError) {
+            console.warn("Error parsing team members:", parseError);
+          }
         }
       } catch (error) {
-        console.error("Error fetching team members:", error);
+        // Silently fail - this is not a critical error
+        console.debug("Team members not available");
       }
     };
 
