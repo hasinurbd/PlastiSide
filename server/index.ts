@@ -21,23 +21,14 @@ export function createServer() {
     fileUpload({
       limits: { fileSize: 50 * 1024 * 1024 },
       abortOnLimit: true,
-    }),
+    })
   );
 
   // Serve static files
   app.use("/public", express.static(path.join(process.cwd(), "public")));
-  app.use(
-    "/avatars",
-    express.static(path.join(process.cwd(), "public", "avatars")),
-  );
-  app.use(
-    "/submissions",
-    express.static(path.join(process.cwd(), "public", "submissions")),
-  );
-  app.use(
-    "/logos",
-    express.static(path.join(process.cwd(), "public", "logos")),
-  );
+  app.use("/avatars", express.static(path.join(process.cwd(), "public", "avatars")));
+  app.use("/submissions", express.static(path.join(process.cwd(), "public", "submissions")));
+  app.use("/logos", express.static(path.join(process.cwd(), "public", "logos")));
 
   // Example API routes
   app.get("/api/ping", (_req, res) => {
@@ -64,6 +55,7 @@ export function createServer() {
   app.put("/api/submissions/verify", submissionRoutes.verifySubmission);
 
   // Admin routes
+  app.get("/api/admin/settings/public", adminRoutes.getPublicSettings);
   app.get("/api/admin/settings", adminRoutes.getAdminSettings);
   app.put("/api/admin/settings", adminRoutes.updateAdminSettings);
   app.post("/api/admin/logo", adminRoutes.uploadLogo);
