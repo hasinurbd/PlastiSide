@@ -18,21 +18,28 @@ export default function Footer() {
     const fetchTeamMembers = async () => {
       try {
         const response = await fetch("/api/admin/settings/public");
+
         if (!response.ok) {
           // Silently fail if not found - settings are optional
+          console.debug(`Settings endpoint returned ${response.status}`);
           return;
         }
+
         const data = await response.json();
-        if (data.success && data.settings?.footerTeam) {
+
+        if (data && data.success && data.settings?.footerTeam) {
           try {
-            setTeamMembers(JSON.parse(data.settings.footerTeam));
+            const parsedTeam = JSON.parse(data.settings.footerTeam);
+            if (Array.isArray(parsedTeam)) {
+              setTeamMembers(parsedTeam);
+            }
           } catch (parseError) {
-            console.warn("Error parsing team members:", parseError);
+            console.debug("Could not parse team members:", parseError);
           }
         }
       } catch (error) {
         // Silently fail - this is not a critical error
-        console.debug("Team members not available");
+        console.debug("Team members not available:", error);
       }
     };
 
