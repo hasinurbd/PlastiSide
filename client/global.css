@@ -139,6 +139,12 @@
   h3 {
     @apply text-2xl md:text-3xl font-semibold;
   }
+
+  /* Bangla language font */
+  [lang="bn"],
+  .lang-bn {
+    font-family: "Noto Sans Bengali", "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
 }
 
 @layer components {
