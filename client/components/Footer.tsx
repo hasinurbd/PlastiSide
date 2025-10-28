@@ -1,50 +1,9 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
-
-interface TeamMember {
-  name: string;
-  role: string;
-}
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   const { t } = useLanguage();
-  const [activeTab, setActiveTab] = useState<"links" | "team">("links");
-  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
-
-  useEffect(() => {
-    // Fetch team members from admin settings
-    const fetchTeamMembers = async () => {
-      try {
-        const response = await fetch("/api/admin/settings/public");
-
-        if (!response.ok) {
-          // Silently fail if not found - settings are optional
-          console.debug(`Settings endpoint returned ${response.status}`);
-          return;
-        }
-
-        const data = await response.json();
-
-        if (data && data.success && data.settings?.footerTeam) {
-          try {
-            const parsedTeam = JSON.parse(data.settings.footerTeam);
-            if (Array.isArray(parsedTeam)) {
-              setTeamMembers(parsedTeam);
-            }
-          } catch (parseError) {
-            console.debug("Could not parse team members:", parseError);
-          }
-        }
-      } catch (error) {
-        // Silently fail - this is not a critical error
-        console.debug("Team members not available:", error);
-      }
-    };
-
-    fetchTeamMembers();
-  }, []);
 
   return (
     <footer className="bg-dark-charcoal text-white">
