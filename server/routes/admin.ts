@@ -58,6 +58,34 @@ export const getAdminSettings: RequestHandler = async (req, res) => {
   }
 };
 
+export const getPublicSettings: RequestHandler = async (_req, res) => {
+  try {
+    let settings = await prisma.adminSettings.findFirst();
+
+    if (!settings) {
+      return res.status(404).json({
+        success: false,
+        message: "Settings not found",
+      });
+    }
+
+    return res.json({
+      success: true,
+      settings: {
+        companyName: settings.companyName,
+        footerTeam: settings.footerTeam,
+        logoUrl: settings.logoUrl,
+      },
+    });
+  } catch (error) {
+    console.error("Get public settings error:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+
 export const updateAdminSettings: RequestHandler = async (req, res) => {
   try {
     const token = req.headers.authorization?.replace("Bearer ", "");
@@ -106,9 +134,7 @@ export const updateAdminSettings: RequestHandler = async (req, res) => {
           primaryColor: primaryColor || "#2ECC71",
           secondaryColor: secondaryColor || "#1A73E8",
           footerTeam: footerTeam ? JSON.stringify(footerTeam) : undefined,
-          analyticsData: analyticsData
-            ? JSON.stringify(analyticsData)
-            : undefined,
+          analyticsData: analyticsData ? JSON.stringify(analyticsData) : undefined,
         },
       });
     } else {
@@ -119,9 +145,7 @@ export const updateAdminSettings: RequestHandler = async (req, res) => {
           primaryColor: primaryColor || undefined,
           secondaryColor: secondaryColor || undefined,
           footerTeam: footerTeam ? JSON.stringify(footerTeam) : undefined,
-          analyticsData: analyticsData
-            ? JSON.stringify(analyticsData)
-            : undefined,
+          analyticsData: analyticsData ? JSON.stringify(analyticsData) : undefined,
         },
       });
     }
