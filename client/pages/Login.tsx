@@ -1,34 +1,42 @@
 import Layout from "@/components/Layout";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, LogIn } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useLanguage } from "@/hooks/useLanguage";
 
 export default function Login() {
   const navigate = useNavigate();
-  const { login, isLoading } = useAuth();
+  const { login, isAuthenticated } = useAuth();
   const { t } = useLanguage();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+
+  if (isAuthenticated) {
+    navigate("/dashboard");
+  }
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-
-    if (!email || !password) {
-      setError("Please fill in all fields");
-      return;
-    }
+    setIsLoading(true);
 
     try {
-      await login(email, password);
+      await login(formData.email, formData.password);
       navigate("/dashboard");
-    } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "Login failed. Please try again.",
-      );
+    } catch (err: any) {
+      setError(err.message || "Login failed. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -41,7 +49,7 @@ export default function Login() {
             className="flex items-center gap-2 text-eco-green hover:text-eco-green/80 mb-8"
           >
             <ArrowLeft className="w-4 h-4" />
-            {t("nav.howItWorks")}
+            {t("common.home")}
           </Link>
 
           <div className="text-center space-y-4 mb-8">
@@ -54,7 +62,7 @@ export default function Login() {
           </div>
 
           {error && (
-            <div className="mb-6 p-4 bg-red-100 border border-red-300 text-red-600 rounded-lg text-sm">
+            <div className="p-4 bg-red-100 text-red-600 rounded-lg mb-6 text-sm">
               {error}
             </div>
           )}
@@ -66,10 +74,12 @@ export default function Login() {
               </label>
               <input
                 type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
                 placeholder={t("auth.emailPlaceholder")}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-eco-green focus:border-transparent outline-none transition"
+                required
               />
             </div>
 
@@ -79,10 +89,12 @@ export default function Login() {
               </label>
               <input
                 type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleInputChange}
                 placeholder={t("auth.passwordPlaceholder")}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-eco-green focus:border-transparent outline-none transition"
+                required
               />
             </div>
 
@@ -96,7 +108,10 @@ export default function Login() {
                   {t("auth.rememberMe")}
                 </span>
               </label>
-              <a href="#" className="text-eco-green hover:text-eco-green/80">
+              <a
+                href="#"
+                className="text-eco-green hover:text-eco-green/80"
+              >
                 {t("auth.forgotPassword")}
               </a>
             </div>
@@ -104,10 +119,9 @@ export default function Login() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full btn-primary disabled:opacity-50 flex items-center justify-center gap-2"
+              className="w-full btn-primary disabled:opacity-50"
             >
-              <LogIn className="w-5 h-5" />
-              {isLoading ? "Loading..." : t("auth.signInButton")}
+              {isLoading ? t("common.loading") : t("auth.signInButton")}
             </button>
 
             <div className="text-center text-sm">
@@ -122,23 +136,6 @@ export default function Login() {
               </p>
             </div>
           </form>
-
-          {/* Demo Credentials */}
-          <div className="mt-8 pt-8 border-t border-border">
-            <p className="text-xs text-dark-charcoal/50 mb-3 font-semibold">
-              DEMO CREDENTIALS
-            </p>
-            <div className="space-y-2 text-xs text-dark-charcoal/60">
-              <p>
-                <span className="font-semibold">Citizen:</span> user@example.com
-                / password123
-              </p>
-              <p>
-                <span className="font-semibold">Admin:</span> admin@example.com
-                / admin123
-              </p>
-            </div>
-          </div>
         </div>
       </div>
     </Layout>

@@ -1,18 +1,16 @@
 import Layout from "@/components/Layout";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { ArrowLeft, UserPlus } from "lucide-react";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
+import { ArrowLeft, Users, TrendingUp, Package } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useLanguage } from "@/hooks/useLanguage";
-import { Users, TrendingUp, Package } from "lucide-react";
 
 export default function Register() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { register, isLoading } = useAuth();
+  const { register, isAuthenticated } = useAuth();
   const { t } = useLanguage();
   const role = searchParams.get("role") || "citizen";
-  const [error, setError] = useState("");
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -22,6 +20,12 @@ export default function Register() {
     confirmPassword: "",
     businessName: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  if (isAuthenticated) {
+    navigate("/dashboard");
+  }
 
   const roles = [
     {
@@ -47,30 +51,14 @@ export default function Register() {
   const selectedRole = roles.find((r) => r.id === role) || roles[0];
   const SelectedIcon = selectedRole.icon;
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-
-    // Validation
-    if (
-      !formData.firstName ||
-      !formData.lastName ||
-      !formData.email ||
-      !formData.password
-    ) {
-      setError("Please fill in all required fields");
-      return;
-    }
 
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match");
@@ -78,14 +66,11 @@ export default function Register() {
     }
 
     if (formData.password.length < 8) {
-      setError("Password must be at least 8 characters");
+      setError(t("auth.mustBe8Chars"));
       return;
     }
 
-    if (role === "collector" && !formData.businessName) {
-      setError("Business name is required for collectors");
-      return;
-    }
+    setIsLoading(true);
 
     try {
       await register(
@@ -94,15 +79,13 @@ export default function Register() {
         formData.firstName,
         formData.lastName,
         role,
-        role === "collector" ? formData.businessName : undefined,
+        role === "collector" ? formData.businessName : undefined
       );
       navigate("/dashboard");
-    } catch (err) {
-      setError(
-        err instanceof Error
-          ? err.message
-          : "Registration failed. Please try again.",
-      );
+    } catch (err: any) {
+      setError(err.message || "Registration failed");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -112,10 +95,10 @@ export default function Register() {
         <div className="container mx-auto px-4">
           <Link
             to="/"
-            className="flex items-center gap-2 text-eco-green hover:text-eco-green/80 mb-8"
+            className="flex items-center gap-2 text-eco-green hover:text-eco-green/80 mb-8 max-w-4xl mx-auto"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to home
+            {t("common.home")}
           </Link>
 
           <div className="max-w-4xl mx-auto">
@@ -149,16 +132,14 @@ export default function Register() {
                     >
                       <Icon
                         className={`w-8 h-8 mx-auto mb-3 ${
-                          isSelected
-                            ? "text-eco-green"
-                            : "text-dark-charcoal/40"
+                          isSelected ? "text-eco-green" : "text-dark-charcoal/40"
                         }`}
                       />
                       <h3 className="font-montserrat font-bold text-dark-charcoal">
                         {r.name}
                       </h3>
                       <p className="text-sm text-dark-charcoal/60 font-raleway mt-2">
-                        {r.description.substring(0, 50)}...
+                        {r.description}
                       </p>
                     </Link>
                   );
@@ -174,16 +155,16 @@ export default function Register() {
                 </div>
                 <div>
                   <h3 className="font-montserrat font-bold text-dark-charcoal">
-                    Register as {selectedRole.name}
+                    {t("auth.createAccount")} {selectedRole.name}
                   </h3>
                   <p className="text-sm text-dark-charcoal/60 font-raleway">
-                    {selectedRole.description.substring(0, 60)}
+                    {selectedRole.description}
                   </p>
                 </div>
               </div>
 
               {error && (
-                <div className="mb-6 p-4 bg-red-100 border border-red-300 text-red-600 rounded-lg text-sm">
+                <div className="p-4 bg-red-100 text-red-600 rounded-lg mb-6 text-sm">
                   {error}
                 </div>
               )}
@@ -197,9 +178,10 @@ export default function Register() {
                     <input
                       type="text"
                       name="firstName"
-                      placeholder={t("auth.firstNamePlaceholder")}
                       value={formData.firstName}
                       onChange={handleInputChange}
+                      placeholder={t("auth.firstNamePlaceholder")}
+                      required
                       className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-eco-green focus:border-transparent outline-none transition"
                     />
                   </div>
@@ -210,9 +192,10 @@ export default function Register() {
                     <input
                       type="text"
                       name="lastName"
-                      placeholder={t("auth.lastNamePlaceholder")}
                       value={formData.lastName}
                       onChange={handleInputChange}
+                      placeholder={t("auth.lastNamePlaceholder")}
+                      required
                       className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-eco-green focus:border-transparent outline-none transition"
                     />
                   </div>
@@ -225,42 +208,43 @@ export default function Register() {
                   <input
                     type="email"
                     name="email"
-                    placeholder={t("auth.emailPlaceholder")}
                     value={formData.email}
                     onChange={handleInputChange}
+                    placeholder={t("auth.emailPlaceholder")}
+                    required
                     className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-eco-green focus:border-transparent outline-none transition"
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-semibold text-dark-charcoal mb-2">
-                    {t("auth.password")}
-                  </label>
-                  <input
-                    type="password"
-                    name="password"
-                    placeholder={t("auth.passwordPlaceholder")}
-                    value={formData.password}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-eco-green focus:border-transparent outline-none transition"
-                  />
-                  <p className="text-xs text-dark-charcoal/50 mt-2 font-raleway">
-                    {t("auth.mustBe8Chars")}
-                  </p>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-dark-charcoal mb-2">
-                    Confirm Password
-                  </label>
-                  <input
-                    type="password"
-                    name="confirmPassword"
-                    placeholder={t("auth.passwordPlaceholder")}
-                    value={formData.confirmPassword}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-eco-green focus:border-transparent outline-none transition"
-                  />
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-semibold text-dark-charcoal mb-2">
+                      {t("auth.password")}
+                    </label>
+                    <input
+                      type="password"
+                      name="password"
+                      value={formData.password}
+                      onChange={handleInputChange}
+                      placeholder={t("auth.passwordPlaceholder")}
+                      required
+                      className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-eco-green focus:border-transparent outline-none transition"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-dark-charcoal mb-2">
+                      Confirm Password
+                    </label>
+                    <input
+                      type="password"
+                      name="confirmPassword"
+                      value={formData.confirmPassword}
+                      onChange={handleInputChange}
+                      placeholder={t("auth.passwordPlaceholder")}
+                      required
+                      className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-eco-green focus:border-transparent outline-none transition"
+                    />
+                  </div>
                 </div>
 
                 {role === "collector" && (
@@ -271,9 +255,9 @@ export default function Register() {
                     <input
                       type="text"
                       name="businessName"
-                      placeholder={t("auth.businessNamePlaceholder")}
                       value={formData.businessName}
                       onChange={handleInputChange}
+                      placeholder={t("auth.businessNamePlaceholder")}
                       className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-eco-green focus:border-transparent outline-none transition"
                     />
                   </div>
@@ -284,23 +268,15 @@ export default function Register() {
                     type="checkbox"
                     id="terms"
                     className="w-4 h-4 rounded border-border mt-1"
+                    required
                   />
-                  <label
-                    htmlFor="terms"
-                    className="text-sm text-dark-charcoal/70 font-raleway"
-                  >
+                  <label htmlFor="terms" className="text-sm text-dark-charcoal/70 font-raleway">
                     {t("auth.agreeTerms")}{" "}
-                    <a
-                      href="#"
-                      className="text-eco-green hover:text-eco-green/80"
-                    >
+                    <a href="#" className="text-eco-green hover:text-eco-green/80">
                       {t("auth.termsOfService")}
                     </a>{" "}
                     {t("auth.and")}{" "}
-                    <a
-                      href="#"
-                      className="text-eco-green hover:text-eco-green/80"
-                    >
+                    <a href="#" className="text-eco-green hover:text-eco-green/80">
                       {t("auth.privacyPolicy")}
                     </a>
                   </label>
@@ -309,10 +285,11 @@ export default function Register() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full btn-primary disabled:opacity-50 py-3 font-semibold flex items-center justify-center gap-2"
+                  className="w-full btn-primary py-3 font-semibold disabled:opacity-50"
                 >
-                  <UserPlus className="w-5 h-5" />
-                  {isLoading ? "Creating..." : t("auth.createAccountButton")}
+                  {isLoading
+                    ? t("common.loading")
+                    : t("auth.createAccountButton")}
                 </button>
 
                 <div className="text-center text-sm">
