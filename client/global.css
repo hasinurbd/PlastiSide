@@ -140,10 +140,18 @@
     @apply text-2xl md:text-3xl font-semibold;
   }
 
-  /* Bangla language font */
+  /* Bangla language font - Apply to all text elements when Bangla is detected */
   [lang="bn"],
-  .lang-bn {
+  .lang-bn,
+  [lang="bn"] *,
+  .lang-bn * {
     font-family: "Hind Siliguri", "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  /* Ensure Bangla text in translated content uses proper font */
+  :where(p, span, li, h1, h2, h3, h4, h5, h6, a, button, label, td, th, div)[lang="bn"],
+  :where(p, span, li, h1, h2, h3, h4, h5, h6, a, button, label, td, th, div).lang-bn {
+    font-family: "Hind Siliguri", "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
   }
 }
 
