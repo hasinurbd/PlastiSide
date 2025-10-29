@@ -75,7 +75,7 @@ export default function AdminRegister() {
         formData.password,
         formData.firstName,
         formData.lastName,
-        "admin"
+        "admin",
       );
       navigate("/admin");
     } catch (err: any) {
@@ -217,7 +217,9 @@ export default function AdminRegister() {
                   disabled={isLoading}
                   className="w-full btn-primary py-3 font-semibold disabled:opacity-50"
                 >
-                  {isLoading ? t("common.loading") : t("auth.createAccountButton")}
+                  {isLoading
+                    ? t("common.loading")
+                    : t("auth.createAccountButton")}
                 </button>
 
                 <div className="text-center text-sm">

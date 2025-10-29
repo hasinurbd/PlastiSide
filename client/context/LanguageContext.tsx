@@ -1,4 +1,12 @@
-import { createContext, useContext, useState, useEffect, useCallback, useMemo, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  ReactNode,
+} from "react";
 import { translate, Language } from "@/lib/translations";
 
 interface LanguageContextType {
@@ -8,7 +16,9 @@ interface LanguageContextType {
   setLanguage: (lang: Language) => void;
 }
 
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+const LanguageContext = createContext<LanguageContextType | undefined>(
+  undefined,
+);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [language, setLanguageState] = useState<Language>(() => {
@@ -27,7 +37,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     (key: string): string => {
       return translate(key, language);
     },
-    [language]
+    [language],
   );
 
   const toggleLanguage = useCallback(() => {
@@ -45,7 +55,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
       toggleLanguage,
       setLanguage,
     }),
-    [language, t, toggleLanguage, setLanguage]
+    [language, t, toggleLanguage, setLanguage],
   );
 
   return (

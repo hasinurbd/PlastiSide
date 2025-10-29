@@ -18,7 +18,7 @@ export const useLanguage = () => {
     (key: string): string => {
       return translate(key, language);
     },
-    [language]
+    [language],
   );
 
   // Memoized toggle function

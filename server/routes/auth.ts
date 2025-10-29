@@ -204,7 +204,9 @@ export const handleVerifyAdminInvite: RequestHandler = async (req, res) => {
     // Verify the invite code
     // For now, we'll use a simple environment variable approach
     // In production, you should use a database table to store invite codes
-    const validCodes = (process.env.ADMIN_INVITE_CODES || "").split(",").filter(Boolean);
+    const validCodes = (process.env.ADMIN_INVITE_CODES || "")
+      .split(",")
+      .filter(Boolean);
 
     if (!validCodes.includes(inviteCode.trim())) {
       return res.status(401).json({
