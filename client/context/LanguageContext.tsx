@@ -1,8 +1,5 @@
 import { createContext, useContext, useState, useEffect, useCallback, useMemo, ReactNode } from "react";
-import en from "@/locales/en.json";
-import bn from "@/locales/bn.json";
-
-type Language = "en" | "bn";
+import { translate, Language } from "@/lib/translations";
 
 interface LanguageContextType {
   language: Language;
@@ -10,9 +7,6 @@ interface LanguageContextType {
   toggleLanguage: () => void;
   setLanguage: (lang: Language) => void;
 }
-
-const translations = { en, bn } as const;
-const languageCache = new Map<string, string>();
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
@@ -22,7 +16,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     return (saved as Language) || "en";
   });
 
-  // Update HTML lang attribute and localStorage
+  // Update HTML lang attribute and localStorage on language change
   useEffect(() => {
     localStorage.setItem("language", language);
     document.documentElement.lang = language;
@@ -31,26 +25,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   // Memoized translation function
   const t = useCallback(
     (key: string): string => {
-      const cacheKey = `${language}:${key}`;
-      if (languageCache.has(cacheKey)) {
-        return languageCache.get(cacheKey)!;
-      }
-
-      const keys = key.split(".");
-      let value: any = translations[language];
-
-      for (const k of keys) {
-        if (value && typeof value === "object" && k in value) {
-          value = value[k];
-        } else {
-          languageCache.set(cacheKey, key);
-          return key;
-        }
-      }
-
-      const result = typeof value === "string" ? value : key;
-      languageCache.set(cacheKey, result);
-      return result;
+      return translate(key, language);
     },
     [language]
   );
