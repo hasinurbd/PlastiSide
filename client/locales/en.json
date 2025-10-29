@@ -16,7 +16,8 @@
     "loading": "Loading...",
     "error": "Error",
     "success": "Success",
-    "languageName": "English"
+    "languageName": "English",
+    "switchLanguageName": "বাংলা"
   },
   "nav": {
     "howItWorks": "How It Works",
