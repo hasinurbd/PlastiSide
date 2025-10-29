@@ -42,6 +42,7 @@ export function createServer() {
   app.post("/api/auth/register", authRoutes.handleRegister);
   app.post("/api/auth/login", authRoutes.handleLogin);
   app.post("/api/auth/logout", authRoutes.handleLogout);
+  app.post("/api/auth/verify-admin-invite", authRoutes.handleVerifyAdminInvite);
 
   // User routes
   app.get("/api/user/profile", userRoutes.getProfile);
