@@ -15,7 +15,8 @@
     "delete": "Delete",
     "loading": "Loading...",
     "error": "Error",
-    "success": "Success"
+    "success": "Success",
+    "languageName": "English"
   },
   "nav": {
     "howItWorks": "How It Works",
