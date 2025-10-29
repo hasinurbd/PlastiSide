@@ -189,3 +189,51 @@ export const handleLogout: RequestHandler = (_req, res) => {
     message: "Logged out successfully",
   });
 };
+
+export const handleVerifyAdminInvite: RequestHandler = async (req, res) => {
+  try {
+    const { inviteCode, email } = req.body;
+
+    if (!inviteCode || !email) {
+      return res.status(400).json({
+        success: false,
+        message: "Invite code and email required",
+      });
+    }
+
+    // Verify the invite code
+    // For now, we'll use a simple environment variable approach
+    // In production, you should use a database table to store invite codes
+    const validCodes = (process.env.ADMIN_INVITE_CODES || "").split(",").filter(Boolean);
+
+    if (!validCodes.includes(inviteCode.trim())) {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid invite code",
+      });
+    }
+
+    // Check if user with this email already exists
+    const existingUser = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (existingUser) {
+      return res.status(400).json({
+        success: false,
+        message: "User with this email already exists",
+      });
+    }
+
+    return res.json({
+      success: true,
+      message: "Invite code verified successfully",
+    });
+  } catch (error) {
+    console.error("Verify admin invite error:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
