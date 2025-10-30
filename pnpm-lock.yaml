@@ -1,1 +1,3 @@
-
+git add pnpm-lock.yaml
+git commit -m "Add lockfile for Vercel deployment"
+git push origin main
