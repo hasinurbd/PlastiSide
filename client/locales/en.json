@@ -82,10 +82,10 @@
   },
   "cta": {
     "readyMakeDifference": "Ready to Make a Difference?",
-    "joinToday": "Join PlastiSide today and start earning rewards while helping create a sustainable future."
+    "joinToday": "Join Plastixide today and start earning rewards while helping create a sustainable future."
   },
   "features": {
-    "whyChoose": "Why Choose PlastiSide?",
+    "whyChoose": "Why Choose Plastixide?",
     "subtitle": "Experience the platform built for the circular economy.",
     "realTimeUpdates": "Real-Time Updates",
     "realTimeUpdatesDesc": "Instant notifications on submissions, rewards, and inventory changes.",
@@ -102,9 +102,9 @@
   },
   "auth": {
     "welcomeBack": "Welcome Back",
-    "signIn": "Sign in to your PlastiSide account",
+    "signIn": "Sign in to your Plastixide account",
     "createAccount": "Create Your Account",
-    "joinPlatform": "Join PlastiSide and start making an impact",
+    "joinPlatform": "Join Plastixide and start making an impact",
     "whoAreYou": "Who are you?",
     "email": "Email Address",
     "emailPlaceholder": "you@example.com",
@@ -158,7 +158,7 @@
     "aboutUs": "About Us",
     "contactUs": "Contact",
     "privacyPolicy": "Privacy Policy",
-    "email": "Email: hello@plastiside.com",
+    "email": "Email: hello@plastixide.com",
     "phone": "Phone: +1 (555) 123-4567",
     "headquarters": "Headquarters: San Francisco, CA",
     "rights": "All rights reserved"
