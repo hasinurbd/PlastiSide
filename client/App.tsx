@@ -22,6 +22,16 @@ const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 
 const queryClient = new QueryClient();
 
+// Loading fallback component
+const LoadingFallback = () => (
+  <div className="min-h-screen flex items-center justify-center bg-light-grey">
+    <div className="text-center">
+      <div className="animate-spin h-12 w-12 border-4 border-eco-green border-t-transparent rounded-full mx-auto"></div>
+      <p className="mt-4 text-dark-charcoal">Loading...</p>
+    </div>
+  </div>
+);
+
 // Protected route wrapper
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated, isLoading } = useAuth();
