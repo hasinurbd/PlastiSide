@@ -30,7 +30,7 @@ export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState<"dashboard" | "users" | "settings">("dashboard");
   const [isLoading, setIsLoading] = useState(true);
   const [settings, setSettings] = useState({
-    companyName: "PlastiSide",
+    companyName: "Plastixide",
     primaryColor: "#2ECC71",
     secondaryColor: "#1A73E8",
     footerTeam: [{ name: "", role: "" }],
