@@ -80,10 +80,38 @@ const App = () => (
       <AuthProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Suspense fallback={<LoadingFallback />}><Index /></Suspense>} />
-            <Route path="/login" element={<Suspense fallback={<LoadingFallback />}><Login /></Suspense>} />
-            <Route path="/register" element={<Suspense fallback={<LoadingFallback />}><Register /></Suspense>} />
-            <Route path="/admin-register" element={<Suspense fallback={<LoadingFallback />}><AdminRegister /></Suspense>} />
+            <Route
+              path="/"
+              element={
+                <Suspense fallback={<LoadingFallback />}>
+                  <Index />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <Suspense fallback={<LoadingFallback />}>
+                  <Login />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/register"
+              element={
+                <Suspense fallback={<LoadingFallback />}>
+                  <Register />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/admin-register"
+              element={
+                <Suspense fallback={<LoadingFallback />}>
+                  <AdminRegister />
+                </Suspense>
+              }
+            />
             <Route
               path="/dashboard"
               element={

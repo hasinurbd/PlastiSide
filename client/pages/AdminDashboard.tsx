@@ -27,7 +27,9 @@ export default function AdminDashboard() {
   const { token } = useAuth();
   const [stats, setStats] = useState<AdminStats | null>(null);
   const [users, setUsers] = useState<AdminUser[]>([]);
-  const [activeTab, setActiveTab] = useState<"dashboard" | "users" | "settings">("dashboard");
+  const [activeTab, setActiveTab] = useState<
+    "dashboard" | "users" | "settings"
+  >("dashboard");
   const [isLoading, setIsLoading] = useState(true);
   const [settings, setSettings] = useState({
     companyName: "Plastixide",
@@ -66,7 +68,9 @@ export default function AdminDashboard() {
           companyName: s.companyName || "Plastixide",
           primaryColor: s.primaryColor || "#2ECC71",
           secondaryColor: s.secondaryColor || "#1A73E8",
-          footerTeam: s.footerTeam ? JSON.parse(s.footerTeam) : [{ name: "", role: "" }],
+          footerTeam: s.footerTeam
+            ? JSON.parse(s.footerTeam)
+            : [{ name: "", role: "" }],
         });
       }
     } catch (error) {
@@ -248,8 +252,11 @@ export default function AdminDashboard() {
                               className="bg-gradient-to-r from-eco-green to-ocean-blue h-3 rounded-full transition-all duration-500"
                               style={{
                                 width: `${Math.min(
-                                  (type._sum.weight / (stats.submissionsByType[0]?._sum.weight || 1)) * 100,
-                                  100
+                                  (type._sum.weight /
+                                    (stats.submissionsByType[0]?._sum.weight ||
+                                      1)) *
+                                    100,
+                                  100,
                                 )}%`,
                               }}
                             ></div>
@@ -325,7 +332,10 @@ export default function AdminDashboard() {
                               <select
                                 value={user.status}
                                 onChange={(e) =>
-                                  handleUpdateUserStatus(user.id, e.target.value)
+                                  handleUpdateUserStatus(
+                                    user.id,
+                                    e.target.value,
+                                  )
                                 }
                                 className="px-3 py-1 border border-border rounded text-sm cursor-pointer"
                               >
@@ -358,7 +368,10 @@ export default function AdminDashboard() {
                         type="text"
                         value={settings.companyName}
                         onChange={(e) =>
-                          setSettings({ ...settings, companyName: e.target.value })
+                          setSettings({
+                            ...settings,
+                            companyName: e.target.value,
+                          })
                         }
                         className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-eco-green focus:border-transparent outline-none transition"
                       />
@@ -405,14 +418,20 @@ export default function AdminDashboard() {
                       </label>
                       <div className="space-y-4">
                         {settings.footerTeam.map((member, idx) => (
-                          <div key={idx} className="grid md:grid-cols-2 gap-4 p-4 bg-light-grey rounded-lg">
+                          <div
+                            key={idx}
+                            className="grid md:grid-cols-2 gap-4 p-4 bg-light-grey rounded-lg"
+                          >
                             <input
                               type="text"
                               value={member.name}
                               onChange={(e) => {
                                 const newTeam = [...settings.footerTeam];
                                 newTeam[idx].name = e.target.value;
-                                setSettings({ ...settings, footerTeam: newTeam });
+                                setSettings({
+                                  ...settings,
+                                  footerTeam: newTeam,
+                                });
                               }}
                               placeholder="Team member name"
                               className="px-4 py-2 border border-border rounded-lg outline-none"
@@ -423,7 +442,10 @@ export default function AdminDashboard() {
                               onChange={(e) => {
                                 const newTeam = [...settings.footerTeam];
                                 newTeam[idx].role = e.target.value;
-                                setSettings({ ...settings, footerTeam: newTeam });
+                                setSettings({
+                                  ...settings,
+                                  footerTeam: newTeam,
+                                });
                               }}
                               placeholder="Role/Position"
                               className="px-4 py-2 border border-border rounded-lg outline-none"
@@ -434,7 +456,10 @@ export default function AdminDashboard() {
                           onClick={() =>
                             setSettings({
                               ...settings,
-                              footerTeam: [...settings.footerTeam, { name: "", role: "" }],
+                              footerTeam: [
+                                ...settings.footerTeam,
+                                { name: "", role: "" },
+                              ],
                             })
                           }
                           className="px-4 py-2 border-2 border-eco-green text-eco-green rounded-lg font-semibold hover:bg-eco-green hover:text-white transition-colors"

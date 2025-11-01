@@ -77,7 +77,9 @@ export default function Header() {
             onClick={toggleLanguage}
             className="px-3 py-2 text-dark-charcoal hover:text-eco-green transition-colors flex items-center gap-2 font-semibold rounded-lg hover:bg-light-grey"
             title={language === "en" ? "বাংলায় যান" : "Go to English"}
-            aria-label={language === "en" ? "Switch to Bangla" : "Switch to English"}
+            aria-label={
+              language === "en" ? "Switch to Bangla" : "Switch to English"
+            }
           >
             <Globe className="w-5 h-5" />
             <span className="text-sm font-medium">
