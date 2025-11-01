@@ -63,7 +63,7 @@ export default function AdminDashboard() {
       if (settingsData.success && settingsData.settings) {
         const s = settingsData.settings;
         setSettings({
-          companyName: s.companyName || "PlastiSide",
+          companyName: s.companyName || "Plastixide",
           primaryColor: s.primaryColor || "#2ECC71",
           secondaryColor: s.secondaryColor || "#1A73E8",
           footerTeam: s.footerTeam ? JSON.parse(s.footerTeam) : [{ name: "", role: "" }],
