@@ -6,16 +6,19 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import AdminRegister from "./pages/AdminRegister";
+import { Suspense, lazy } from "react";
 import { AuthProvider, useAuth } from "./context/AuthContext";
-import Dashboard from "./pages/Dashboard";
-import Profile from "./pages/Profile";
-import SubmitPlastic from "./pages/SubmitPlastic";
-import AdminDashboard from "./pages/AdminDashboard";
+import NotFound from "./pages/NotFound";
+
+// Lazy load pages for better performance
+const Index = lazy(() => import("./pages/Index"));
+const Login = lazy(() => import("./pages/Login"));
+const Register = lazy(() => import("./pages/Register"));
+const AdminRegister = lazy(() => import("./pages/AdminRegister"));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const Profile = lazy(() => import("./pages/Profile"));
+const SubmitPlastic = lazy(() => import("./pages/SubmitPlastic"));
+const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 
 const queryClient = new QueryClient();
 
@@ -67,10 +70,10 @@ const App = () => (
       <AuthProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/admin-register" element={<AdminRegister />} />
+            <Route path="/" element={<Suspense fallback={<LoadingFallback />}><Index /></Suspense>} />
+            <Route path="/login" element={<Suspense fallback={<LoadingFallback />}><Login /></Suspense>} />
+            <Route path="/register" element={<Suspense fallback={<LoadingFallback />}><Register /></Suspense>} />
+            <Route path="/admin-register" element={<Suspense fallback={<LoadingFallback />}><AdminRegister /></Suspense>} />
             <Route
               path="/dashboard"
               element={
