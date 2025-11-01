@@ -21,10 +21,10 @@ export default function Header() {
       <nav className="container mx-auto px-4 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 group">
-          <div className="w-10 h-10 bg-eco-green rounded-full flex items-center justify-center text-white font-bold text-lg">
+          <div className="w-10 h-10 bg-eco-green rounded-full flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
             P
           </div>
-          <span className="font-montserrat font-bold text-xl text-dark-charcoal">
+          <span className="font-montserrat font-bold text-lg md:text-xl text-dark-charcoal hidden sm:inline">
             {t("common.plastisideApp")}
           </span>
         </Link>
@@ -75,11 +75,14 @@ export default function Header() {
         <div className="hidden md:flex items-center gap-3">
           <button
             onClick={toggleLanguage}
-            className="px-3 py-2 text-dark-charcoal hover:text-eco-green transition-colors flex items-center gap-2 font-semibold"
-            title={language === "en" ? "Switch to Bangla" : "Switch to English"}
+            className="px-3 py-2 text-dark-charcoal hover:text-eco-green transition-colors flex items-center gap-2 font-semibold rounded-lg hover:bg-light-grey"
+            title={language === "en" ? "বাংলায় যান" : "Go to English"}
+            aria-label={language === "en" ? "Switch to Bangla" : "Switch to English"}
           >
             <Globe className="w-5 h-5" />
-            {language.toUpperCase()}
+            <span className="text-sm font-medium">
+              {language === "en" ? "বাংলা" : "EN"}
+            </span>
           </button>
 
           {!isAuthenticated ? (
