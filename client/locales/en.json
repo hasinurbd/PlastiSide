@@ -17,7 +17,8 @@
     "error": "Error",
     "success": "Success",
     "languageName": "English",
-    "switchLanguageName": "বাংলা"
+    "switchLanguageName": "Switch Language",
+    "switchLanguageDesc": "Switch to Bangla"
   },
   "nav": {
     "howItWorks": "How It Works",
