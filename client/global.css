@@ -1,5 +1,5 @@
 /** @import must precede all other statements */
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&family=Raleway:wght@400;500;600;700&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&family=Raleway:wght@400;500;600;700&family=Hind+Siliguri:wght@300;400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -109,20 +109,33 @@
       BlinkMacSystemFont,
       "Segoe UI",
       sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Apply Hind Siliguri to entire document when Bangla is selected */
-  html[lang="bn"],
-  html[lang="bn"] body,
-  html[lang="bn"] body * {
+  /* Apply Bangla fonts to entire document when Bangla is selected */
+  html[lang="bn"] {
     font-family:
       "Hind Siliguri",
+      "Noto Sans Bengali",
       "Montserrat",
       -apple-system,
       BlinkMacSystemFont,
       "Segoe UI",
       sans-serif;
-    line-height: 1.6;
+  }
+
+  html[lang="bn"] body,
+  html[lang="bn"] body * {
+    font-family:
+      "Hind Siliguri",
+      "Noto Sans Bengali",
+      "Montserrat",
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      sans-serif !important;
+    line-height: 1.7;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -163,11 +176,12 @@
   .lang-bn * {
     font-family:
       "Hind Siliguri",
+      "Noto Sans Bengali",
       "Montserrat",
       -apple-system,
       BlinkMacSystemFont,
       "Segoe UI",
-      sans-serif;
+      sans-serif !important;
   }
 
   /* Ensure Bangla text in translated content uses proper font */
@@ -186,7 +200,12 @@
     label,
     td,
     th,
-    div
+    div,
+    article,
+    section,
+    nav,
+    header,
+    footer
   )[lang="bn"],
   :where(
     p,
@@ -203,10 +222,16 @@
     label,
     td,
     th,
-    div
+    div,
+    article,
+    section,
+    nav,
+    header,
+    footer
   ).lang-bn {
     font-family:
       "Hind Siliguri",
+      "Noto Sans Bengali",
       "Montserrat",
       -apple-system,
       BlinkMacSystemFont,
@@ -232,11 +257,29 @@
   .text-bangla {
     font-family:
       "Hind Siliguri",
+      "Noto Sans Bengali",
       "Montserrat",
       -apple-system,
       BlinkMacSystemFont,
       "Segoe UI",
-      sans-serif;
+      sans-serif !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.7;
+  }
+
+  /* Ensure proper spacing for Bangla text */
+  html[lang="bn"] h1,
+  html[lang="bn"] h2,
+  html[lang="bn"] h3,
+  html[lang="bn"] h4,
+  html[lang="bn"] h5,
+  html[lang="bn"] h6,
+  html[lang="bn"] p,
+  html[lang="bn"] button,
+  html[lang="bn"] span,
+  html[lang="bn"] a,
+  html[lang="bn"] label {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
