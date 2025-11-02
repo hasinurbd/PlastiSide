@@ -21,31 +21,29 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
 );
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguageState] = useState<Language>(() => {
-    const saved = localStorage.getItem("language");
-    return (saved as Language) || "en";
-  });
+  // Bangla only - no language switching
+  const language: Language = "bn";
 
-  // Update HTML lang attribute and localStorage on language change
+  // Set HTML lang attribute on mount
   useEffect(() => {
-    localStorage.setItem("language", language);
-    document.documentElement.lang = language;
-  }, [language]);
+    document.documentElement.lang = "bn";
+  }, []);
 
   // Memoized translation function
   const t = useCallback(
     (key: string): string => {
-      return translate(key, language);
+      return translate(key, "bn");
     },
-    [language],
+    [],
   );
 
+  // No-op functions for compatibility
   const toggleLanguage = useCallback(() => {
-    setLanguageState((prev) => (prev === "en" ? "bn" : "en"));
+    // Language switching disabled - Bangla only
   }, []);
 
-  const setLanguage = useCallback((lang: Language) => {
-    setLanguageState(lang);
+  const setLanguage = useCallback(() => {
+    // Language switching disabled - Bangla only
   }, []);
 
   const value = useMemo(
@@ -55,7 +53,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
       toggleLanguage,
       setLanguage,
     }),
-    [language, t, toggleLanguage, setLanguage],
+    [t],
   );
 
   return (
