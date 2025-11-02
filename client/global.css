@@ -140,7 +140,28 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  :where(p, span, li, h1, h2, h3, h4, h5, h6, a, button, label, td, th, div, article, section, nav, header, footer) {
+  :where(
+    p,
+    span,
+    li,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    a,
+    button,
+    label,
+    td,
+    th,
+    div,
+    article,
+    section,
+    nav,
+    header,
+    footer
+  ) {
     overflow-wrap: anywhere;
     word-break: break-word;
     font-family:

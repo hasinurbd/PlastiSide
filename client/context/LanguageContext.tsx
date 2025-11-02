@@ -30,12 +30,9 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   // Memoized translation function
-  const t = useCallback(
-    (key: string): string => {
-      return translate(key, "bn");
-    },
-    [],
-  );
+  const t = useCallback((key: string): string => {
+    return translate(key, "bn");
+  }, []);
 
   // No-op functions for compatibility
   const toggleLanguage = useCallback(() => {
