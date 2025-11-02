@@ -99,7 +99,7 @@ export default function Index() {
                       </div>
                     </div>
                     <p className="font-montserrat font-bold text-dark-charcoal">
-                      Recycle + Earn
+                      {t("hero.recyclePlusEarn")}
                     </p>
                   </div>
                 </div>
@@ -422,7 +422,7 @@ export default function Index() {
               to="/register"
               className="px-8 py-4 bg-white text-eco-green font-semibold rounded-lg hover:bg-light-grey transition-colors flex items-center justify-center gap-2 group"
             >
-              Get Started Now
+              {t("hero.getStartedNow")}
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
             <a
