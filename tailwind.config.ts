@@ -73,7 +73,14 @@ export default {
         ],
         poppins: ["Poppins", "sans-serif"],
         raleway: ["Raleway", "sans-serif"],
-        bengali: ["Hind Siliguri", "sans-serif"],
+        bengali: [
+          "Hind Siliguri",
+          "Noto Sans Bengali",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "sans-serif",
+        ],
       },
       borderRadius: {
         lg: "var(--radius)",
