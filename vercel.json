@@ -1,4 +1,20 @@
 {
   "buildCommand": "pnpm install --no-frozen-lockfile && npm run build",
-  "outputDirectory": "dist"
+  "outputDirectory": "dist/spa",
+  "framework": "react",
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "regions": ["iad1"],
+  "functions": {
+    "netlify/functions/*.ts": {
+      "runtime": "nodejs18.x"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }
