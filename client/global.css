@@ -7,40 +7,30 @@
 
 @layer base {
   /**
-   * PlastiSide Brand Colors in HSL format
+   * Plastixide Brand Colors in HSL format
    * Tailwind CSS theme - HSL values for color variables
   */
   :root {
     --background: 0 0% 100%;
     --foreground: 210 29% 24%;
-
     --card: 0 0% 100%;
     --card-foreground: 210 29% 24%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 210 29% 24%;
-
     --primary: 145 63% 49%;
     --primary-foreground: 0 0% 100%;
-
     --secondary: 217 91% 61%;
     --secondary-foreground: 0 0% 100%;
-
     --muted: 0 0% 96%;
     --muted-foreground: 210 29% 50%;
-
     --accent: 217 91% 61%;
     --accent-foreground: 0 0% 100%;
-
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 0 0% 90%;
     --input: 0 0% 96%;
     --ring: 145 63% 49%;
-
     --radius: 0.5rem;
-
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 210 29% 24%;
     --sidebar-primary: 145 63% 49%;
@@ -49,8 +39,6 @@
     --sidebar-accent-foreground: 0 0% 100%;
     --sidebar-border: 0 0% 90%;
     --sidebar-ring: 145 63% 49%;
-
-    /* PlastiSide Brand Colors */
     --eco-green: 145 63% 49%;
     --ocean-blue: 217 91% 61%;
     --light-grey: 0 0% 96%;
@@ -60,28 +48,20 @@
   .dark {
     --background: 210 29% 24%;
     --foreground: 0 0% 96%;
-
     --card: 210 29% 20%;
     --card-foreground: 0 0% 96%;
-
     --popover: 210 29% 24%;
     --popover-foreground: 0 0% 96%;
-
     --primary: 145 63% 49%;
     --primary-foreground: 210 29% 24%;
-
     --secondary: 217 91% 61%;
     --secondary-foreground: 210 29% 24%;
-
     --muted: 210 29% 35%;
     --muted-foreground: 0 0% 70%;
-
     --accent: 217 91% 61%;
     --accent-foreground: 210 29% 24%;
-
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 210 29% 35%;
     --input: 210 29% 35%;
     --ring: 145 63% 49%;
@@ -94,83 +74,56 @@
     --sidebar-border: 210 29% 35%;
     --sidebar-ring: 145 63% 49%;
   }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
 
   html {
-    font-family:
-      "Hind Siliguri",
-      "Noto Sans Bengali",
-      -apple-system,
-      BlinkMacSystemFont,
-      "Segoe UI",
-      sans-serif;
+    font-family: "Hind Siliguri", "Noto Sans Bengali", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
 
   body {
     @apply bg-background text-foreground;
-    font-family:
-      "Hind Siliguri",
-      "Noto Sans Bengali",
-      -apple-system,
-      BlinkMacSystemFont,
-      "Segoe UI",
-      sans-serif;
+    font-family: "Hind Siliguri", "Noto Sans Bengali", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     line-height: 1.7;
     letter-spacing: 0.25px;
   }
 
-  /* Ensure all elements use Bangla fonts */
-  body,
   body * {
-    font-family:
-      "Hind Siliguri",
-      "Noto Sans Bengali",
-      -apple-system,
-      BlinkMacSystemFont,
-      "Segoe UI",
-      sans-serif !important;
+    font-family: "Hind Siliguri", "Noto Sans Bengali", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  :where(
-    p,
-    span,
-    li,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    a,
-    button,
-    label,
-    td,
-    th,
-    div,
-    article,
-    section,
-    nav,
-    header,
-    footer
-  ) {
+  p,
+  span,
+  li,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  a,
+  button,
+  label,
+  td,
+  th,
+  div,
+  article,
+  section,
+  nav,
+  header,
+  footer,
+  input,
+  textarea,
+  select {
     overflow-wrap: anywhere;
     word-break: break-word;
-    font-family:
-      "Hind Siliguri",
-      "Noto Sans Bengali",
-      -apple-system,
-      BlinkMacSystemFont,
-      "Segoe UI",
-      sans-serif !important;
+    font-family: "Hind Siliguri", "Noto Sans Bengali", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
   }
 
   pre,
@@ -186,13 +139,7 @@
   h4,
   h5,
   h6 {
-    font-family:
-      "Hind Siliguri",
-      "Noto Sans Bengali",
-      -apple-system,
-      BlinkMacSystemFont,
-      "Segoe UI",
-      sans-serif !important;
+    font-family: "Hind Siliguri", "Noto Sans Bengali", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
     font-weight: 700;
     letter-spacing: 0.5px;
   }
@@ -223,34 +170,10 @@
     @apply inline-flex items-center justify-center px-6 py-3 rounded-lg border-2 border-eco-green text-eco-green font-semibold hover:bg-eco-green hover:text-white transition-colors;
   }
 
-  /* Bangla text styling utility */
   .text-bangla {
-    font-family:
-      "Hind Siliguri",
-      "Noto Sans Bengali",
-      "Montserrat",
-      -apple-system,
-      BlinkMacSystemFont,
-      "Segoe UI",
-      sans-serif !important;
+    font-family: "Hind Siliguri", "Noto Sans Bengali", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     line-height: 1.7;
-  }
-
-  /* Ensure proper spacing for Bangla text */
-  html[lang="bn"] h1,
-  html[lang="bn"] h2,
-  html[lang="bn"] h3,
-  html[lang="bn"] h4,
-  html[lang="bn"] h5,
-  html[lang="bn"] h6,
-  html[lang="bn"] p,
-  html[lang="bn"] button,
-  html[lang="bn"] span,
-  html[lang="bn"] a,
-  html[lang="bn"] label {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
 }
