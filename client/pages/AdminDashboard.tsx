@@ -157,7 +157,7 @@ export default function AdminDashboard() {
               }`}
             >
               <Users className="w-5 h-5 inline-block mr-2" />
-              Users
+              {t("admin.users")}
             </button>
             <button
               onClick={() => setActiveTab("settings")}
@@ -168,14 +168,14 @@ export default function AdminDashboard() {
               }`}
             >
               <Settings className="w-5 h-5 inline-block mr-2" />
-              Settings
+              {t("admin.settings")}
             </button>
           </div>
 
           {isLoading ? (
             <div className="text-center py-12">
               <div className="inline-block animate-spin h-12 w-12 border-4 border-eco-green border-t-transparent rounded-full"></div>
-              <p className="mt-4 text-dark-charcoal/60">Loading...</p>
+              <p className="mt-4 text-dark-charcoal/60">{t("common.loading")}</p>
             </div>
           ) : (
             <>
@@ -185,38 +185,38 @@ export default function AdminDashboard() {
                   {/* Stats Grid */}
                   <div className="grid md:grid-cols-4 gap-6">
                     <div className="bg-white rounded-lg p-8 shadow-sm border-l-4 border-eco-green">
-                      <p className="text-sm font-semibold text-dark-charcoal/70 mb-2">
-                        Total Users
+                      <p className="text-sm font-semibold text-dark-charcoal/70 mb-2 text-bangla">
+                        {t("admin.totalUsers")}
                       </p>
                       <div className="text-4xl font-bold text-eco-green mb-2">
                         <AnimatedCounter end={stats.totalUsers} />
                       </div>
-                      <p className="text-xs text-dark-charcoal/60">
-                        All registered users
+                      <p className="text-xs text-dark-charcoal/60 text-bangla">
+                        {t("admin.totalUsers")}
                       </p>
                     </div>
 
                     <div className="bg-white rounded-lg p-8 shadow-sm border-l-4 border-ocean-blue">
-                      <p className="text-sm font-semibold text-dark-charcoal/70 mb-2">
-                        Submissions
+                      <p className="text-sm font-semibold text-dark-charcoal/70 mb-2 text-bangla">
+                        {t("admin.totalSubmissions")}
                       </p>
                       <div className="text-4xl font-bold text-ocean-blue mb-2">
                         <AnimatedCounter end={stats.totalSubmissions} />
                       </div>
-                      <p className="text-xs text-dark-charcoal/60">
-                        Total plastic submissions
+                      <p className="text-xs text-dark-charcoal/60 text-bangla">
+                        {t("admin.totalSubmissions")}
                       </p>
                     </div>
 
                     <div className="bg-white rounded-lg p-8 shadow-sm border-l-4 border-eco-green">
-                      <p className="text-sm font-semibold text-dark-charcoal/70 mb-2">
-                        Total Points
+                      <p className="text-sm font-semibold text-dark-charcoal/70 mb-2 text-bangla">
+                        {t("admin.totalPoints")}
                       </p>
                       <div className="text-4xl font-bold text-eco-green mb-2">
                         <AnimatedCounter end={stats.totalPoints} suffix="K+" />
                       </div>
-                      <p className="text-xs text-dark-charcoal/60">
-                        Points distributed
+                      <p className="text-xs text-dark-charcoal/60 text-bangla">
+                        {t("admin.totalPoints")}
                       </p>
                     </div>
 
