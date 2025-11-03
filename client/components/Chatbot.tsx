@@ -9,12 +9,25 @@ interface Message {
   timestamp: Date;
 }
 
+// Basic Q&A knowledge base in Bangla
+const CHATBOT_RESPONSES: { [key: string]: string } = {
+  "কীভাবে প্লাস্টিক জমা দিতে পারি":
+    "আপনি আমাদের অ্যাপে যাওয়ার পর 'প্লাস্টিক জমা দিন' বাটনে ক্লিক করে আপনার প্লাস্টিক জমা দিতে পারেন। তারপর প্লাস্টিকের ধরন, ওজন এবং অবস্থান নির্বাচন করুন।",
+  "পুরস্কার":
+    "প্রতিটি জমা দেওয়া প্লাস্টিকের জন্য আপনি পয়েন্ট অর্জন করবেন। এই পয়েন্টগুলি বিভিন্ন পুরস্কার এবং ছাড়ের জন্য রিডিম করা যায়।",
+  "মেশিন":
+    "আপনার ড্যাশবোর্ডে 'কাছের মেশিন খুঁজুন' বিকল্পটি ব্যবহার করুন। এটি আপনার এলাকায় সমস্ত উপলব্ধ মেশিনের একটি মানচিত্র দেখাবে।",
+  "সাহায্য":
+    "আমাদের সাথে এই চ্যাটবটের মাধ্যমে যোগাযোগ করুন অথবা hello@plastixide.com এ ইমেল করুন।",
+};
+
 export default function Chatbot() {
+  const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
-      text: "Hello! How can I help you today?",
+      text: t("chatbot.hello"),
       sender: "bot",
       timestamp: new Date(),
     },
@@ -22,7 +35,6 @@ export default function Chatbot() {
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const { t } = useLanguage();
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -31,6 +43,17 @@ export default function Chatbot() {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  // Function to find matching response from knowledge base
+  const findResponse = (userMessage: string): string | null => {
+    const lowerMessage = userMessage.toLowerCase();
+    for (const [keyword, response] of Object.entries(CHATBOT_RESPONSES)) {
+      if (lowerMessage.includes(keyword.toLowerCase())) {
+        return response;
+      }
+    }
+    return null;
+  };
 
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
@@ -48,44 +71,57 @@ export default function Chatbot() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/chatbot/message", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: inputValue }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      if (data && data.success) {
+      // First check local knowledge base
+      const localResponse = findResponse(inputValue);
+      if (localResponse) {
         const botMessage: Message = {
           id: (Date.now() + 1).toString(),
-          text: data.message || "I couldn't understand that. Please try again.",
+          text: localResponse,
           sender: "bot",
           timestamp: new Date(),
         };
-
-        setMessages((prev) => [...prev, botMessage]);
-      } else if (data && data.message) {
-        const botMessage: Message = {
-          id: (Date.now() + 1).toString(),
-          text: data.message,
-          sender: "bot",
-          timestamp: new Date(),
-        };
-
         setMessages((prev) => [...prev, botMessage]);
       } else {
-        throw new Error("Invalid response from server");
+        // If no local response, try API
+        const response = await fetch("/api/chatbot/message", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: inputValue }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data && data.success) {
+          const botMessage: Message = {
+            id: (Date.now() + 1).toString(),
+            text: data.message || t("chatbot.couldNotUnderstand"),
+            sender: "bot",
+            timestamp: new Date(),
+          };
+
+          setMessages((prev) => [...prev, botMessage]);
+        } else if (data && data.message) {
+          const botMessage: Message = {
+            id: (Date.now() + 1).toString(),
+            text: data.message,
+            sender: "bot",
+            timestamp: new Date(),
+          };
+
+          setMessages((prev) => [...prev, botMessage]);
+        } else {
+          throw new Error("Invalid response from server");
+        }
       }
     } catch (error) {
       console.error("Error sending message:", error);
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: "Sorry, I encountered an error. Please try again.",
+        text: t("chatbot.errorOccurred"),
         sender: "bot",
         timestamp: new Date(),
       };
@@ -116,8 +152,12 @@ export default function Chatbot() {
           {/* Header */}
           <div className="bg-eco-green text-white p-4 rounded-t-lg flex items-center justify-between">
             <div>
-              <h3 className="font-bold text-lg">{t("chatbot.chat")}</h3>
-              <p className="text-xs text-eco-green/80">Always here to help</p>
+              <h3 className="font-bold text-lg text-bangla">
+                {t("chatbot.chat")}
+              </h3>
+              <p className="text-xs text-eco-green/80 text-bangla">
+                {t("chatbot.alwaysHere")}
+              </p>
             </div>
           </div>
 
@@ -131,7 +171,7 @@ export default function Chatbot() {
                 }`}
               >
                 <div
-                  className={`max-w-xs px-4 py-2 rounded-lg ${
+                  className={`max-w-xs px-4 py-2 rounded-lg text-bangla ${
                     message.sender === "user"
                       ? "bg-eco-green text-white rounded-br-none"
                       : "bg-light-grey text-dark-charcoal rounded-bl-none"
@@ -182,7 +222,7 @@ export default function Chatbot() {
                   }
                 }}
                 placeholder={t("chatbot.typeMessage")}
-                className="flex-1 px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-eco-green focus:border-transparent outline-none transition"
+                className="flex-1 px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-eco-green focus:border-transparent outline-none transition text-bangla"
               />
               <button
                 onClick={handleSendMessage}
