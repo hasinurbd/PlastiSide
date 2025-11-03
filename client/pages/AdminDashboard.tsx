@@ -1,5 +1,6 @@
 import Layout from "@/components/Layout";
 import { useAuth } from "@/context/AuthContext";
+import { useLanguage } from "@/hooks/useLanguage";
 import { useState, useEffect } from "react";
 import { Users, BarChart3, Package, Settings } from "lucide-react";
 import AnimatedCounter from "@/components/AnimatedCounter";
@@ -25,6 +26,7 @@ interface AdminUser {
 
 export default function AdminDashboard() {
   const { token } = useAuth();
+  const { t } = useLanguage();
   const [stats, setStats] = useState<AdminStats | null>(null);
   const [users, setUsers] = useState<AdminUser[]>([]);
   const [activeTab, setActiveTab] = useState<
@@ -96,11 +98,11 @@ export default function AdminDashboard() {
 
       const data = await response.json();
       if (data.success) {
-        alert("Settings updated successfully!");
+        alert(t("admin.updateSuccess"));
       }
     } catch (error) {
       console.error("Error updating settings:", error);
-      alert("Failed to update settings");
+      alert(t("admin.updateFailed"));
     }
   };
 
@@ -118,7 +120,7 @@ export default function AdminDashboard() {
       const data = await response.json();
       if (data.success) {
         fetchData();
-        alert("User status updated!");
+        alert(t("admin.updateSuccess"));
       }
     } catch (error) {
       console.error("Error updating user status:", error);
@@ -130,7 +132,7 @@ export default function AdminDashboard() {
       <div className="bg-light-grey min-h-screen py-12">
         <div className="container mx-auto px-4">
           <h1 className="text-4xl font-bold text-dark-charcoal mb-12">
-            Admin Dashboard
+            {t("admin.adminDashboard")}
           </h1>
 
           {/* Tab Navigation */}
@@ -144,7 +146,7 @@ export default function AdminDashboard() {
               }`}
             >
               <BarChart3 className="w-5 h-5 inline-block mr-2" />
-              Analytics
+              {t("admin.analytics")}
             </button>
             <button
               onClick={() => setActiveTab("users")}
